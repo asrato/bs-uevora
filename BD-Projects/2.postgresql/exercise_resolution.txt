@@ -1,0 +1,186 @@
+-- a)
+select receita.identificador, nome_receita
+    from receita natural inner join rec_ing
+    where nome_ingrediente like '%Pato%' or
+        nome_ingrediente like '%pato%'
+;
+
+-- b)
+select identificador, nome_receita
+    from receita
+except
+select receita.identificador, receita.nome_receita
+    from receita natural inner join rec_ing
+    where rec_ing.nome_ingrediente like '%Pato%' or
+    rec_ing.nome_ingrediente like '%pato%'
+;
+
+-- c)
+select membro.username, membro.nome_membro
+    from (membro natural inner join memb_rec) natural inner join rec_ing
+        where nome_ingrediente like '%Pato%' or
+            nome_ingrediente like '%pato%'
+;
+
+-- d)
+with patos as (select membro.username
+    from (membro natural inner join memb_rec) natural inner join rec_ing
+        where nome_ingrediente like '%Pato%' or
+            nome_ingrediente like '%pato%'
+)
+select amigo.username1 from amigo natural inner join patos
+	where username2 = username
+union 
+select amigo.username2 from amigo natural inner join patos
+	where username1 = username
+;
+
+-- e)
+select distinct membro.username, membro.nome_membro
+    from (membro natural inner join gosta) natural inner join rec_ing
+        where (nome_ingrediente like '%Pato%' or
+            nome_ingrediente like '%pato%') and
+            gosta.nivel > 1
+;
+
+-- f)
+select membro.username, membro.nome_membro
+	from (membro natural inner join memb_rec) natural inner join rec_ing
+	where rec_ing.nome_ingrediente like '%Ovos%' or rec_ing.nome_ingrediente like '%ovos%' or rec_ing.nome_ingrediente like '%Ovo%' or rec_ing.nome_ingrediente like '%ovo%'
+intersect
+select membro.username, membro.nome_membro
+	from (membro natural inner join memb_rec) natural inner join rec_ing
+	where rec_ing.nome_ingrediente like '%Amêndoa%' or rec_ing.nome_ingrediente like '%amêndoa%'
+;
+
+-- g)
+select membro.username, membro.nome_membro
+    from (membro natural inner join memb_rec) natural inner join rec_ing
+        where nome_ingrediente like '%Pato%' or
+            nome_ingrediente like '%pato%'
+union
+select membro.username, membro.nome_membro
+    from (membro natural inner join memb_rec) natural inner join rec_ing
+        where nome_ingrediente like '%Perú%' or
+            nome_ingrediente like '%perú%'
+;
+
+-- h)
+with sobremesas as (
+    select receita.identificador, receita.nome_receita as nome
+        from sobremesa natural inner join receita
+)
+select sobremesas.identificador, sobremesas.nome
+    from sobremesas natural inner join rec_foto
+    group by (sobremesas.identificador, sobremesas.nome)
+    having count(*) = (
+        select max(numero) as maximo
+            from (select sobremesas.identificador, sobremesas.nome, count (*) as numero
+                    from sobremesas natural inner join rec_foto
+                    group by (sobremesas.identificador, sobremesas.nome)) as tabela
+    )
+;
+
+-- i)
+with membros as (
+    with dados as (
+        with receitas as (
+            select entrada.identificador
+                from entrada natural inner join rec_ing 
+                where nome_ingrediente like '%Cogumelo%' or
+                    nome_ingrediente like '%cogumelo%'
+        )
+        select membro.username, nome_membro, receitas.identificador
+            from (membro natural inner join gosta) natural inner join receitas
+                where gosta.nivel = 3
+    )
+    select username, count(identificador) as numero
+        from dados group by dados.username
+)
+select membro.username, nome_membro
+    from (membro natural inner join membros) inner join 
+        (select  count(*) as numero from
+            (select receita.identificador
+                from receita natural inner join rec_ing
+                where nome_ingrediente like '%Cogumelo%' or
+                    nome_ingrediente like '%cogumelo%'
+            intersect
+            select receita.identificador
+                from receita natural inner join entrada) as rec) as recs on membros.numero = recs.numero
+;
+
+-- j)
+with gostos as (
+	select memb_rec.username, count(*) as numero
+		from (gosta inner join memb_rec using (identificador))
+			natural inner join amigo
+		where nivel = 3 and 
+			((username1 = gosta.username and username2 = memb_rec.username) or (username1 = memb_rec.username and username2 = gosta.username))
+		group by memb_rec.username
+)
+
+select gostos.username
+	from gostos natural inner join (select max(gostos.numero) as maximo
+										from gostos) as x
+	where (gostos.numero = x.maximo)
+	group by(gostos.username)
+;
+
+-- k)
+with sobremesas as (
+    select sobremesa.identificador, receita.nome_receita as nome, receita.custo
+        from (sobremesa natural inner join receita) natural inner join rec_ing
+        where receita.tempo_confecao like 'rapido' and (rec_ing.nome_ingrediente like '%chocolate%' or rec_ing.nome_ingrediente like '%Chocolate%')
+)
+select sobremesas.identificador, sobremesas.nome, count(gosta.username) as numero_gostos, sobremesas.custo
+    from sobremesas natural inner join gosta
+	group by (sobremesas.identificador, sobremesas.nome, sobremesas.custo, gosta.nivel)
+	having gosta.nivel = 3
+;
+
+-- l)
+with aux as (
+	select count(identificador) as numero, identificador
+		from receita natural inner join sobremesa natural inner join gosta
+		where nome_receita = 'Mousse de chocolate' and nivel >= 2
+	group by (identificador)
+)
+select identificador
+	from aux
+	where numero > 5
+;
+
+-- m)
+select identificador from
+    (select identificador, count(identificador)as numero_receitas
+        from
+            (select distinct username2 as username
+                from membro natural inner join amigo
+                where username1=
+                    (select username
+                        from membro
+                        where membro.nome_membro = 'Manuel Silva')
+            union
+            select distinct username1 as username
+                from membro natural inner join amigo
+                where username2=
+                    (select username
+                        from membro
+                            where membro.nome_membro = 'Manuel Silva')) as a
+            natural inner join
+            gosta
+        where nivel>1 and username=username group by (identificador))as b
+    where numero_receitas=
+        (select count(username)as namigos
+            from
+                (select distinct username2 as username
+                    from membro natural inner join amigo where username1=
+                        (select username
+                            from membro
+                            where membro.nome_membro = 'Manuel Silva')
+                union
+                (select distinct username1 as username
+                    from membro natural inner join amigo
+                    where username2=(select username from membro where membro.nome_membro = 'Manuel Silva')) as a
+            where  username=username))
+;

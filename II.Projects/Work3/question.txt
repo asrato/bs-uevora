@@ -1,0 +1,17 @@
+1) Teste o sistema BibTex no Latex passando as referencias submetidas anteriomente de bibitem para o bibtex
+
+Se usar o Overleaf,
+
+- crie um "project" novo, usando por o "example project"
+
+- adapte as referencias  que anteriormente estavam em bibitem para dentro do ficheiro bibtex. (e.g. references.bib)
+
+- use um estilo ieeetr \bibliographystyle{ieeetr} (outros disponíveis são: apalike, acm, alpha, plain, .... )
+
+- Pode consultar a fonte dos artigos que usou e se forem artigos de publicações científicas procure um ponto de exportação das referencias em formato BibTex (quase todas as publicações têm exportação para vários formatos incluindo BibTex.)
+
+- Se não tiver o formato bibtex terá que adaptar a informação recolhida anteriomente
+
+- Overleaf inclui várias páginas de ajuda sobre o bibtex, e.g. "Bibliography management with bibtex"
+
+

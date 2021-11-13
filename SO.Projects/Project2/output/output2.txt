@@ -1,0 +1,72 @@
+File opened successfully!
+ T  | stdout | READY                             | RUN  | BLOCKED
+  0 |        |                                   |      |
+  1 |        |                                   |  P1  |
+> Fork created : P2 <
+  2 | 2      | P2                                |  P1  |
+  3 |        | P2                                |  P1  |
+> Fork created : P3 <
+  4 | 0      | P1 P3                             |  P2  |
+  5 |        | P1 P3                             |  P2  |
+> Fork created : P4 <
+  6 | 4      | P4 P1 P3                          |  P2  |
+  7 | 0      | P2 P4 P1                          |  P3  |
+  8 |        | P2 P4 P1                          |  P3  |
+> Fork created : P5 <
+  9 | 5      | P5 P2 P4 P1                       |  P3  |
+ 10 | 3      | P3 P5 P2 P4                       |  P1  |
+ 11 |        | P3 P5 P2 P4                       |  P1  |
+> Fork created : P6 <
+ 12 | 6      | P6 P3 P5 P2 P4                    |  P1  |
+ 13 | 0      | P1 P6 P3 P5 P2                    |  P4  |
+ 14 |        | P1 P6 P3 P5 P2                    |  P4  |
+> Fork created : P7 <
+ 15 | 7      | P7 P1 P6 P3 P5 P2                 |  P4  |
+ 16 |        | P4 P7 P1 P6 P3 P5                 |  P2  |
+> Fork created : P8 <
+ 17 | 8      | P8 P4 P7 P1 P6 P3 P5              |  P2  |
+ 18 |        | P8 P4 P7 P1 P6 P3 P5              |  P2  |
+ 19 | 0      | P8 P4 P7 P1 P6 P3                 |  P5  | P2
+ 20 |        | P8 P4 P7 P1 P6 P3                 |  P5  | P2
+ 21 |        | P8 P4 P7 P1 P6                    |  P3  | P5 P2
+ 22 | 0      | P8 P4 P7 P1                       |  P6  | P3 P5 P2
+ 23 |        | P8 P4 P7 P1                       |  P6  | P3 P5 P2
+ 24 |        | P2 P8 P4 P7                       |  P1  | P6 P3 P5
+ 25 | 0      | P2 P8 P4                          |  P7  | P1 P6 P3 P5
+ 26 |        | P2 P8 P4                          |  P7  | P1 P6 P3 P5
+ 27 |        | P2 P8                             |  P4  | P7 P1 P6 P3 P5
+ 28 | 0      | P2                                |  P8  | P4 P7 P1 P6 P3 P5
+ 29 |        | P5 P2                             |  P8  | P4 P7 P1 P6 P3
+ 30 |        | P5                                |  P2  | P8 P4 P7 P1 P6 P3
+ 31 |        |                                   |  P5  | P8 P4 P7 P1 P6 P3
+ 32 |        |                                   |      | P8 P4 P7 P1 P6 P3
+ 33 |        |                                   |      | P8 P4 P7 P1 P6 P3
+ 34 |        |                                   |  P3  | P8 P4 P7 P1 P6
+ 35 |        |                                   |      | P8 P4 P7 P1 P6
+ 36 |        |                                   |      | P8 P4 P7 P1 P6
+ 37 |        |                                   |      | P8 P4 P7 P1 P6
+ 38 |        |                                   |      | P8 P4 P7 P1 P6
+ 39 |        |                                   |  P6  | P8 P4 P7 P1
+ 40 |        |                                   |      | P8 P4 P7 P1
+ 41 |        |                                   |      | P8 P4 P7 P1
+ 42 |        |                                   |      | P8 P4 P7 P1
+ 43 |        |                                   |      | P8 P4 P7 P1
+ 44 |        |                                   |  P1  | P8 P4 P7
+ 45 |        |                                   |      | P8 P4 P7
+ 46 |        |                                   |      | P8 P4 P7
+ 47 |        |                                   |      | P8 P4 P7
+ 48 |        |                                   |      | P8 P4 P7
+ 49 |        |                                   |  P7  | P8 P4
+ 50 |        |                                   |      | P8 P4
+> MEMORY WAS DEFRAGMENTATED <
+ 51 |        |                                   |      | P8 P4
+ 52 |        |                                   |      | P8 P4
+ 53 |        |                                   |      | P8 P4
+ 54 |        |                                   |  P4  | P8
+ 55 |        |                                   |      | P8
+ 56 |        |                                   |      | P8
+ 57 |        |                                   |      | P8
+ 58 |        |                                   |      | P8
+ 59 |        |                                   |  P8  |
+ 60 |        |                                   |      |
+> All processes have been terminated <

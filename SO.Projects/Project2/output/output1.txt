@@ -1,0 +1,83 @@
+File opened successfully!
+ T  | stdout | READY                             | RUN  | BLOCKED
+  0 |        |                                   |      |
+  1 |        |                                   |  P1  |
+  2 |        |                                   |  P2  | P1
+  3 |        | P3                                |  P2  | P1
+  4 |        | P3                                |  P2  | P1
+  5 |        | P4                                |  P3  | P2 P1
+  6 |        | P4                                |  P3  | P2 P1
+  7 |        | P1                                |  P4  | P2
+  8 |        | P1                                |  P4  | P2
+  9 |        | P1                                |  P4  | P2
+ 10 |        |                                   |  P1  | P4 P2
+ 11 |        |                                   |  P1  | P4 P2
+ 12 |        | P1                                |  P2  | P4
+ 13 |        |                                   |  P1  | P2 P4
+ 14 |        |                                   |      | P2 P4
+ 15 |        |                                   |      | P2 P4
+ 16 |        |                                   |  P5  | P2 P4
+ 17 |        | P6 P4                             |  P5  | P2
+ 18 |        | P7 P6 P4                          |  P5  | P2
+ 19 |        | P8 P7 P6                          |  P4  | P5 P2
+ 20 |        | P8 P7                             |  P6  | P4 P5 P2
+ 21 |        | P8                                |  P7  | P6 P4 P5 P2
+ 22 |        | P2                                |  P8  | P7 P6 P4 P5
+ 23 |        |                                   |  P2  | P8 P7 P6 P4 P5
+ 24 |        |                                   |      | P2 P8 P7 P6 P4 P5
+ 25 |        |                                   |      | P2 P8 P7 P6 P4 P5
+ 26 |        |                                   |      | P2 P8 P7 P6 P4 P5
+ 27 |        |                                   |  P5  | P2 P8 P7 P6 P4
+ 28 |        |                                   |      | P5 P2 P8 P7 P6 P4
+ 29 |        |                                   |      | P5 P2 P8 P7 P6 P4
+ 30 |        |                                   |      | P5 P2 P8 P7 P6 P4
+ 31 |        |                                   |      | P5 P2 P8 P7 P6 P4
+ 32 |        |                                   |  P4  | P5 P2 P8 P7 P6
+ 33 |        |                                   |      | P4 P5 P2 P8 P7 P6
+ 34 |        |                                   |      | P4 P5 P2 P8 P7 P6
+ 35 |        |                                   |      | P4 P5 P2 P8 P7 P6
+ 36 |        |                                   |      | P4 P5 P2 P8 P7 P6
+ 37 |        |                                   |  P6  | P4 P5 P2 P8 P7
+ 38 |        |                                   |      | P6 P4 P5 P2 P8 P7
+ 39 |        |                                   |      | P6 P4 P5 P2 P8 P7
+ 40 |        |                                   |      | P6 P4 P5 P2 P8 P7
+ 41 |        |                                   |      | P6 P4 P5 P2 P8 P7
+ 42 |        |                                   |  P7  | P6 P4 P5 P2 P8
+ 43 |        |                                   |      | P7 P6 P4 P5 P2 P8
+ 44 |        |                                   |      | P7 P6 P4 P5 P2 P8
+ 45 |        |                                   |      | P7 P6 P4 P5 P2 P8
+ 46 |        |                                   |      | P7 P6 P4 P5 P2 P8
+ 47 |        |                                   |  P8  | P7 P6 P4 P5 P2
+ 48 |        |                                   |      | P7 P6 P4 P5 P2
+ 49 |        |                                   |      | P7 P6 P4 P5 P2
+ 50 |        |                                   |      | P7 P6 P4 P5 P2
+> MEMORY WAS DEFRAGMENTATED <
+ 51 |        |                                   |      | P7 P6 P4 P5 P2
+ 52 |        |                                   |  P2  | P7 P6 P4 P5
+ 53 |        |                                   |      | P7 P6 P4 P5
+ 54 |        |                                   |      | P7 P6 P4 P5
+ 55 |        |                                   |      | P7 P6 P4 P5
+ 56 |        |                                   |      | P7 P6 P4 P5
+ 57 |        |                                   |  P5  | P7 P6 P4
+ 58 |        |                                   |      | P5 P7 P6 P4
+ 59 |        |                                   |      | P5 P7 P6 P4
+ 60 |        |                                   |      | P5 P7 P6 P4
+ 61 |        |                                   |      | P5 P7 P6 P4
+ 62 |        |                                   |  P4  | P5 P7 P6
+ 63 |        |                                   |      | P5 P7 P6
+ 64 |        |                                   |      | P5 P7 P6
+ 65 |        |                                   |      | P5 P7 P6
+ 66 |        |                                   |      | P5 P7 P6
+ 67 |        |                                   |  P6  | P5 P7
+ 68 |        |                                   |      | P5 P7
+ 69 |        |                                   |      | P5 P7
+ 70 |        |                                   |      | P5 P7
+ 71 |        |                                   |      | P5 P7
+ 72 |        |                                   |  P7  | P5
+ 73 |        |                                   |      | P5
+ 74 |        |                                   |      | P5
+ 75 |        |                                   |      | P5
+ 76 |        |                                   |      | P5
+ 77 |        |                                   |  P5  |
+ 78 |        |                                   |      |
+> All processes have been terminated <

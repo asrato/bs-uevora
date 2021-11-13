@@ -1,0 +1,37 @@
+Pretende-se com este trabalho fazer um pequeno exemplo ultra simples de um documento tipo "artigo" em Latex.
+
+Deverá juntamente com os seus colegas de grupo:
+
+1) criar um ambiente Latex. Poderá instalar um ambiente em Linux, Windows ou Mac. No entanto recomenda-se que criem contas grátis no overleaf (www.overleaf.com), com um novo "blank project".
+
+2) No main.tex comecem por usar o seguinte exemplo
+
+\documentclass{article}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\title{Resumo do artigo "Título"}
+\author{Nome1, nome2, etc}
+\date{Março 2021}
+\begin{document}
+\maketitle
+\begin{abstract}
+Neste trabalho faz-se um resumo do artigo intitulado "Título do artigo"\cite{ref1} ... Etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc
+etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc etc e etc.
+\end{abstract}
+\section{Descrição do artigo analisado}
+Neste artigo faz-se uma apresentação de .....Este artigo está dividido em x secções. Na secção 1 ....
+\begin{thebibliography}{8}
+\bibitem{ref1}
+Author, F.: Introduzir o nome do/dos autores, título do artigo, e nome da revista ou o site ... etc \textbf{2}(5), 99--110 (2016)
+ \url{http://www.springer.com/lncs}. Last accessed 1
+March 2021
+\end{thebibliography}
+\end{document}
+
+3) Deverão consultar o artigo-para-ler e fazer um resumo em português (mas se alguém fizer questão também podem fazê-lo em inglês) na secção "Descrição do artigo analisado" com um número de palavras entre 200 e 500, tomando como referência o método proposto na aula passada para leitura de artigos científicos.
+
+4) Submetam o resultado do vosso trabalho, (apenas um dos membros do grupo) em formato PDF no Forum de respostas de 9 de Março (podem submeter até amanhã dia 10 de Março).
+
+Notem que o resumo que irão submeter será naturalmente um resumo muito simplificado uma vez que os assuntos tratados no artigo-para-ler não, na maioria, do nosso conhecimento. No entanto o artigo está escrito mais como artigo de divulgação do que artigo técnico pelo que é suposto terem uma compreensão geral do que se trata.  O artigo tem cerca de 12 secções, pelo que podem fazer uma descrição geral do artigo e descreverem com um pouco mais de detalhe  3 ou 4 secções à vossa escolha.
+
+O objetivo é realizar esta tarefa durante o tempo definido para a aula. No entanto, se quiserem, poderão versões posteriores com alguma correção que queiram fazer. Nesse caso submetam-as como resposta ao post inicial.   

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>CG &CenterDot; Trabalho 2 &CenterDot; SVG</title>
+</head>
+
+<body>
+    <svg width="500" height="500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+        <defs>
+            <!-- Gradientes Utilizados -->
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0" stop-color="#f49820" />
+                <stop offset="0.4" stop-color="#f49820" />
+                <stop offset="0.6" stop-color="#ed6d23" />
+                <stop offset="1" stop-color="#ed6d23" />
+            </linearGradient>
+
+            <linearGradient id="grad2" x1="100%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0" stop-color="#301712" />
+                <stop offset="0.4" stop-color="#301712" />
+                <stop offset="0.6" stop-color="#46241d" />
+                <stop offset="1" stop-color="#46241d" />
+            </linearGradient>
+
+            <radialGradient id="grad3" cx="37.25" cy="31.53" r="60.21" gradientTransform="scale(4.142)" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FF7500" offset=".1218"/>
+            <stop stop-color="#FC7301" offset=".3444"/>
+            <stop stop-color="#F16E02" offset=".533"/>
+            <stop stop-color="#E06605" offset=".7093"/>
+            <stop stop-color="#C75A09" offset=".877"/>
+            <stop stop-color="#B04F0D" offset="1"/>
+    </radialGradient>
+
+            <!-- Caminhos Utilizados -->
+            <g id="sapatilha">
+                <path d="
+                    M 110 250
+                    Q 110 242 115 240
+                    L 130 233
+                    L 146 233
+                    L 149 240
+                    L 149 250
+                    L 110 250
+                " />
+            </g>
+
+            <g id="meia">
+                <path d="
+                    M 130 233
+                    L 129 216
+                    L 147 216
+                    L 146 233
+                " />
+            </g>
+
+            <g id="perna">
+                <path d="
+                    M 129 216
+                    L 128 185
+                    Q 128 177 133 170
+                    L 147 148
+                    L 173 148
+                    L 150 183
+                    L 147 216
+                " />
+            </g>
+
+            <g id="calcao">
+                <path d="
+                    M 10 103
+                    L 10 88
+                    Q 10 80 18 80
+                    Q 26 80 26 88
+                    L 26 103
+                    L 10 103
+                " />
+            </g>
+
+            <g id="camisola">
+                <path d="
+                    M 10 150
+                    L 62 150
+                    L 62 80
+                    Q 62 55 36 55
+                    Q 10 55 10 80
+                    L 10 150
+                " />
+            </g>
+
+            <g id="manga">
+                <path d="
+                    M 10 103
+                    L 10 88
+                    Q 10 80 18 80
+                    Q 26 80 26 88
+                    L 26 103
+                    L 10 103
+                " />
+            </g>
+
+            <g id="braco">
+                <path d="
+                    M 20 10
+                    L 42 15
+                    Q 48 17 50 20
+                    L 70 40
+                    Q 75 50 63 50
+                    L 40 30
+                    L 15 25
+                " />
+            </g>
+
+            <g id="pescoco">
+                <path d="
+                    M 11 30
+                    Q 13 34 13 38
+                    L 25 35
+                    Q 24 30 25 25
+                " />
+            </g>
+
+            <g id="cabeca">
+                <path d="
+                    M 30 35
+                    L 35 28
+                    L 55 25
+                    L 70 35
+                    L 64 60
+                    Q 38 73 32 62
+                    L 31 56
+                    L 27 53
+                    L 32 48
+                    Q 29 38 30 35
+                " />
+            </g>
+
+            <g id="cabelo">
+                <path d="
+                    M 20 15
+                    Q 20 23 35 15
+                    Q 53 10 60 25
+                    Q 75 32 70 45
+                    Q 73 53 65 60
+                    Q 58 65 68 65
+                    Q 52 74 45 60
+                    Q 52 58 51 52
+                    Q 48 45 44 53
+                    Q 43 53 42 50
+                    Q 40 46 42 42
+                    Q 42 40 40 39
+                    Q 39 42 35 42 
+                    Q 18 42 18 47
+                    Q 8 36 17 28
+                    Q 10 20 20 15
+                " />
+            </g>
+
+            <g id="olho">
+                <circle cx="10"  cy="10" r="2" />
+            </g>
+
+            <g id="sobrancelha">
+                <path d="
+                    M 10 10
+                    Q 15 8 18 13
+                    Q 13 10 10 12
+                    Q 8 11 10 10
+                " />
+            </g>
+
+            <g id="boca">
+                <path d="
+                    M 10 10
+                    Q 12 10 16 9
+                    Q 11 12 10 10
+                " />
+            </g>
+
+            <g id="mao-dir-1">
+                <path d="
+                    M 38 6
+                    L 19 8
+                    Q 15 11 19 13
+                    L 30 13
+                    Q 35 13 32 14
+                    L 25 18
+                    Q 23 22 30 21
+                    L 40 16
+                " />
+            </g>
+
+            <g id="mao-dir-2">
+                <path d="
+                    M 38 12
+                    L 22 12
+                    Q 18 14 22 16
+                    L 24 16
+                    Q 23 18 25 20
+                    L 27 20
+                " />
+            </g>
+
+            <g id="mao-esq">
+                <path d="
+                    M 204 115
+                    Q 204 122 201 128
+                    Q 205 132 206 126
+                    Q 209 132 210 136
+                    Q 210 138 212 138
+                    Q 214 138 214 136
+                    L 213 132
+                    Q 215 138 218 137
+                    Q 219 136 218 134
+                    L 217 130
+                    Q 219 136 221 134
+                    Q 222 134 222 132
+                    L 218 124
+                    L 221 128
+                    Q 223 130 225 128
+                    Q 225 126 225 125
+                    L 213 107
+                " />
+            </g>
+
+            <g id = "bola2" stroke-width="5.142">
+                <circle cx="199.3" cy="199.5" r="199.3" fill="url(#grad3)"/>
+            <path d="m57.7 233.4c0-201.9 113.3-231.9 115.7-231.9v8e-3l14.04-1.487c0 0.0456-19.62 6.209-29.94 12.42-10.31 6.209-24.1 16.55-37.92 33.05-27.62 33-54.89 90.52-54.91 189.5 0 73.03 36.96 120.3 55.68 139.2 6.234 6.308 23.07 16.43 23.09 16.46l-20.9-7.377c-0.2071-0.174-64.85-43.3-64.85-150z" stroke="#f49820" fill="#f49820"/>
+            <path d="m61.1 189.3c-37.28-4.225-42.72-32.95-42.62-54.65l0.174-9.928c0.087-9.033 0.41-10.39 0.41-10.39l5.505-10.74s-1.773 10.94-1.773 21.14c0.1118 21.46 4.958 50.69 38.88 54.39 3.84 0.4183 7.509 0.6213 11.04 0.6213 24.94-2.158 57.79-19.93 98.46-51.17 40.32-30.82 107.5-70.76 158.3-71.27 4.403 0 8.772 1.073 12.06 2.415l5.629 6.084c-2.572-1.06-10.88-1.595-14.93-1.595-35.16-0.1532-115.4 42.61-154.8 73-40.38 30.95-67.2 52.72-104.8 52.76-3.69 0-7.513-0.2237-11.49-0.6586z" stroke="#f49820" fill="#f49820"/>
+            <path d="m221 360.5c-23.43-6.407-52.2-23.68-80.38-37.21-27.24-13.1-54.95-22.97-77.01-26.21-3.09-0.3769-5.861-0.5302-8.362-0.5302-15.37 0.0704-21.36 6.42-22.81 8.934-0.4722 0.8615-0.994 1.495-0.994 1.495l-2.655-4.013c0.4887-0.8739 4.341-15.4 26.35-15.25 2.672 0 5.612 0.1698 8.855 0.5592 26.64 3.164 52.69 14.64 79.99 27.76 28.33 13.64 55.95 30.69 78.5 36.83 22.85 6.221 28.81 9.431 45.56 9.448 31.84 0.0663 55.22-6.706 55.27-6.731l-3.819 2.783c-0.0911 8e-3 -26.73 9.837-51.71 9.319-17.08 0.0124-24.08-0.9775-46.79-7.182z" stroke="#f49820" fill="#f49820"/>
+            <path d="m61.2 247.6c-11.81-1.731-30.41-6.345-45.13-11.9-14.78-5.542-14.16-8.412-14.16-8.412s-1.164-5.177-1.553-15.01c0 0 4.531 4.208 7.571 5.956 2.005 1.653 6.888 3.906 13.14 6.279l-0.6047-0.4225c13.56 5.148 31.96 9.713 42.52 11.22 18.85 2.742 49.81 4.842 89.76 4.842 4.283 0 8.677-0.029 13.18-0.0704 46.14-0.4887 117.7-6.399 161.9-17.09 38.73-9.344 60.25-21.86 64.46-24.33 0.5467-0.3521 6.387-3.193 6.387-3.193 2.071-0.9071 1.574 11.93-0.4308 13.29-0.6006 0.4266-21.67 15.26-67.49 26.32-45.93 11.06-117.6 16.88-164.7 17.43-4.539 0.0373-8.967 0.0621-13.3 0.0704-40.42-0.0124-71.75-2.104-91.55-4.97z" stroke="#f49820" fill="#f49820"/>
+            <animateTransform attributeName="transform"
+                attributeType="cx"
+                type="translate"
+                values="70, 280; 70, 370; 70, 280"
+                dur="1s"
+                repeatCount="indefinite"/>
+            <animateTransform attributeName="transform"
+                attributeType="cx"
+                type="scale"
+                values="0.17,0.17"
+                dur="1s"
+                repeatCount="indefinite"
+                additive="sum"/>
+    </g>
+
+            <g id="moldura">
+                <rect x="0" y="0" width="500" height="500"  stroke="black" fill="none"  />
+            </g>
+
+            <g id="chao">
+                <rect x="0" y="400" width="500" height="100"  stroke="none" fill="#804000"  />
+                <line x1="250" y1="400" x2="250" y2="500" stroke="black" fill="none" stroke-width="15" />
+            </g>
+
+            <g id="linha_cir">
+                <circle cx="250" cy="450" r="100"/>
+            </g>
+
+            <g id="parede">
+                <rect x="0" y="0" width="500" height="500"  stroke="none" fill="#FDF8C0"  />
+            </g>
+
+            <g id="jogador">
+                <use xlink:href="#sapatilha" stroke="none" fill="#4568ad" transform="translate(0, 282) rotate(-82)" />
+                <use xlink:href="#meia" stroke="none" fill="#bdbdbd" transform="translate(0, 282) rotate(-82)" />
+                <use xlink:href="#perna" stroke="none" fill="#e59600" transform="translate(0, 282) rotate(-82)" />
+                <use xlink:href="#calcao" stroke="none" fill="#646464"
+                    transform="scale(1.9, 1.9) translate(7, 31) rotate(-50)" />
+
+                <use xlink:href="#sapatilha" stroke="none" fill="#4568ad" />
+                <use xlink:href="#meia" stroke="none" fill="#bdbdbd" />
+                <use xlink:href="#perna" stroke="none" fill="#ffb90a" />
+                <use xlink:href="#calcao" stroke="none" fill="#7c7c7c"
+                    transform="scale(1.9, 1.9) translate(118, -10) rotate(32)" />
+
+                <use xlink:href="#mao-esq" stroke="none" fill="#ffb90a" transform="scale(0.9, 0.9) rotate(-10) translate(-3, 50) " />
+                <use xlink:href="#braco" stroke="none" fill="#ffb90a" transform="translate(146, 61) rotate(5)" />
+            
+                <use xlink:href="#mao-dir-2" stroke="none" fill = "#e59600" transform="translate(48, 126) scale(1, 1)" />
+                <use xlink:href="#mao-dir-1" stroke="none" fill="#ffb90a" transform="translate(44, 125) scale(1.1, 1.1)" />
+                <use xlink:href="#braco" stroke="none" fill="#ffb90a" transform="translate(145, 85) rotate(105)" />
+
+                <use xlink:href="#pescoco" stroke="none" fill="#ffb90a" transform="scale(1.2, 1) translate(85, 40) rotate(-10)" />
+                <use xlink:href="#cabeca" stroke="none" fill="#ffb90a" transform="scale(1, 1.1) translate(75, -5)" />
+                <use xlink:href="#olho" stroke="none" fill="#49362e" transform="scale(1, 1.5) translate(103, 21)" />
+                <use xlink:href="#sobrancelha" stroke="none" fill="#613e31" transform="translate(100, 31)" />
+                <use xlink:href="#boca" stroke="#795548" fill="none" transform="translate(97, 50)" />
+                <use xlink:href="#cabelo" stroke="none" fill="url(#grad2" transform="scale(0.9, 0.9) translate(99, -1)" />
+
+                <use xlink:href="#manga" stroke="none" fill="#ed6d23"
+                    transform="scale(1.3, 1.3) translate(118, -18) rotate(25)" />
+                <use xlink:href="#camisola" stroke="none" fill="url(#grad1)"
+                    transform="translate(93, 38) rotate(-20) scale(0.8, 0.8)" />
+                <use xlink:href="#manga" stroke="none" fill="#ed6d23" 
+                    transform="scale(1.3, 1.3) translate(28, 55) rotate(-75)" />
+            </g>
+
+            <g id="fundo">
+                <use xlink:href="#parede"/>
+                <use xlink:href="#chao"/>
+                <use xlink:href="#linha_cir" stroke="black" fill="none" transform="scale(1, 0.5) translate(0, 570)" stroke-width="20"/>
+            </g>
+
+        </defs>
+
+        <use xlink:href="#fundo"/>
+        <use xlink:href="#bola2"/>
+        <!-- <use xlink:href="#bola" stroke="none" fill="#ffa64d" /> -->
+        <use xlink:href="#jogador" transform="scale(1.5, 1.5) translate(0, 45)" />
+        <use xlink:href="#moldura" stroke-width="5"/>
+        
+        
+
+    </svg>
+</body>
+
+</html>

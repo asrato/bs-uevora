@@ -1,0 +1,148 @@
+\documentclass[12pt, a4paper]{article} 
+\usepackage[a4paper, total={16cm, 24cm}]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} 
+\usepackage{listings}
+    \renewcommand\lstlistingname{Código}
+    \lstset{numbers=left,
+            numberstyle=\tiny,
+            numbersep=5pt,
+            basicstyle=\footnotesize\ttfamily,
+            frame=tb,
+            rulesepcolor=\color{gray},
+            breaklines=true}
+\usepackage[none]{tocbibind}
+\usepackage{hyperref}
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,    
+    urlcolor=blue,
+}
+
+\begin{document}
+    \clearpage
+    \begin{figure}
+        \centering
+        \includegraphics[]{logouni.png}
+    \end{figure}
+
+    \title{RPN - Reverse Polish Notation\\Calculadora em C}
+
+    \author{André Rato nº\texttt{45517} & José Alexandre nº\texttt{45223}}
+
+    \date{Abril e Maio\\Ano Letivo 2019/2020}
+
+    \maketitle
+    \begin{description}
+        \centering
+        \item Arquitetura de Sistemas e Computadores I
+        \item Prof. Miguel Barão
+    \end{description}
+
+    \thispagestyle{empty}
+    \newpage
+    
+    % Índice
+    
+    \renewcommand{\contentsname}{Índice}
+    \tableofcontents
+    \newpage
+
+    % Introdução
+    \section{Introdução}
+        A notação polaca inversa (\textbf{RPN - \textit{Reverse Polish Notation}}), também conhecida como notação pós-fixada, é uma notação onde os operandos são introduzidos primeiro, seguidos dos operadores. Enquanto que na notação infixa, o operador é colocado no meio dos operandos, como em \texttt{3 + 4}, na notação pósfixa o operador surge no final, como em \texttt{3 4 +}. Uma calculadora em notação polaca funciona como uma pilha. Os operandos são colocados na pilha e os operadores são aplicados sobre os operandos que estão no topo da pilha, substituindo-os pelos resultado da operação.\\
+        Para esta trabalho é necessário que a calculadora criada suporte os seguintes operadores:
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{c  lr}
+                \hline
+                Operadores & Descrição\\
+                \hline
+                \texttt{+} & Adição (operador binário)\\
+                \texttt{-} & Subtracção (operador binário)\\
+                \texttt{*} & Multiplicação (operador binário)\\
+                \texttt{/} & Divisão (operador binário)\\
+                \texttt{neg} & Calcula o simétrico (operador unário)\\
+                \texttt{swap} & Troca a opsição dos dois operandos do topo da pilha\\
+                \texttt{dup} & Duplica (clone) o operando do topo da pilha\\
+                \texttt{drop} & Elimina o operando do topo da pilha\\
+                \texttt{clear} & Limpa toda a pilha (fica vazia)\\
+                \texttt{off} & Desliga a calculadora (termina o programa)\\
+                \hline
+            \end{tabular}
+        \end{table}
+        \\
+        \\Esta calculadora foi desenvolvida na linguagem C. É também de notar que a calculadora deverá ler e executar operações de duas formas:\\
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=5cm]{codigo4.png}
+            \caption{Métodos de introdução da \textit{input} do utilizador}
+        \end{figure}
+        \\
+        \\Para que possam ser usados os dois métodos descritos acima, a leitura e análise da \textit{input} do utilizador é feita caractere a caractere.
+    \newpage       
+       
+    % Pilha (Stack)
+    \section{Pilha (Stack)}
+        Tal como é sugerido no enunicado do trabalho, é usada uma estrutura de dados (\texttt{struct}) para representar a pilha. Deste modo, temos uma \texttt{struct stack} com dois membros:
+        \begin{itemize}
+            \item um \texttt{array} de inteiros de tamanho 10 que guarda os valores da pilha;
+            \item um inteiro \texttt{sp} (\textit{stack pointer}) que indica quantos elementos existem no \texttt{array} (se  o \textit{stack pointer} for 0 não existem elementos no \texttt{array}).
+        \end{itemize}
+        
+    % Acesso direto
+    \section{Funções de acesso direto à stack}
+    \begin{itemize}
+        % função push
+        \item \texttt{void push(struct stack *stack, int number)}: função responsável por colocar valores na \texttt{stack}. Recebe como argumentos a \texttt{stack} e \texttt{number} (valor a ser colocado na pilha). Se \texttt{sp >= 10}, a função apresenta a mensagem \texttt{"Invalid input. Out of bounds. Type 'help' for available commands"}. Se \texttt{sp < 10} a função coloca o valor de \texttt{number} na posição \texttt{sp} do \texttt{array}, e incrementa \texttt{sp} de modo a deixar a pilha pronta para receber outro \texttt{number}.
+        
+        % função pop
+        \item \texttt{int pop(struct stack *stack)}: função responsável por retirar o valor do topo da \texttt{stack}. Recebe a \texttt{stack} como argumento e retorna o valor que se encontra na posição \texttt{sp} do \texttt{array} (\texttt{stack->array[stack->sp]}) após a decrementação de \texttt{sp}, decrementação esta que é efetuada de modo a obter a posição do valor presente no topo da pilha.
+        
+        % função print 
+        \item \texttt{void print(struct stack *stack)}: função responsável por dar \textit{print} da \texttt{stack}. Recebe a \texttt{stack} como argumento e dá \textit{print} dos elementos do \texttt{array} por ordem crescente de \textit{index} (desde 0 até ao \texttt{number\_of\_elements} (\texttt{sp})), utilizando um ciclo \texttt{while}. Se \texttt{number\_of\_elements = 0}, significa que ainda não foram adicionados elementos à pilha, ou seja, ela está vazia. Quando isto acontece, a função dá \textit{print} da mensagem "\texttt{(empty})".
+    \end{itemize}
+    
+    % Acesso não direto
+    \section{Funções de acesso não direto à stack}
+    \begin{itemize}
+    
+        % função soma
+        \item \texttt{void some(struct stack *stack)}: função responsável pela soma dos dois operandos do topo da \texttt{stack} e que recebe a mesma como argumento. Para que a função realize a soma, é necessário que \texttt{sp > 1}. Caso isto aconteça, a função retira o operando do topo da pilha com recurso à função \texttt{pop} e guarda-o em \texttt{arg1}. Depois, repete o processo e guarda-o em \texttt{arg2}. Por fim, e com auxílio da função \texttt{push}, coloca o valor de \texttt{arg2 + arg1} no topo da pilha. Caso não aconteça, a função mostra a mensagem \texttt{"Not enought values in the stack"}, sem realizar nenhuma modificação à pilha.
+        
+        % função subtração
+        \item \texttt{void subtraction(struct stack *stack)}: função responsável pela diferença entre os dois operandos do topo da pilha e que recebe a \texttt{stack} como argumento. Verifica inicialmente se \texttt{sp > 1}. Se a condição for verdadeira, a função retira os dois valores do topo da pilha utilizando o mesmo método da função acima descrita (a função \texttt{some}) e, utilizando a função \texttt{push}, coloca o valor de \texttt{arg2 - arg1} no topo da \texttt{stack}. Se a condição for falsa, a função mostra a mensagem \texttt{"Not enought values in the stack"}, sem realizar nenhuma modificação à mesma.
+        
+        % função produto
+        \item \texttt{void product(struct stack *stack)}: função responsável pelo produto dos dois operandos do topo da pilha. Esta função recebe a \texttt{stack} como argumento e, se \texttt{sp > 1}, retira os dois valores do topo da mesma para as variáveis locais \texttt{arg1} e \texttt{arg2}, respetivamente, utilizando a função \textt{pop}. Após isto, e através da função \texttt{push}, a função coloca na \texttt{stack} o valor de \texttt{arg2 * arg1}. Se não se verificar a condição, é apresentada a mensagem \texttt{"Not enought values in the stack"}.
+        
+        % função divisão
+        \item \texttt{void quotient(struct stack *stack)}: função responsável pela divisão dos dois operandos do topo da pilha. Esta função recebe a \texttt{stack} como argumento e, caso \texttt{sp > 1}, retira os dois valores do topo da mesma para as variáveis locais \texttt{arg1} e \texttt{arg2}, respetivamente, recorrendo à função \texttt{pop}. Depois, verifica se \texttt{arg1} = 0. Se a condição for verdadeira apresenta uma mensagem de erro e volta a colocar na pilha os valores guardados nas variáveis locais pela ordem com que estavam na pilha; se for falsa, coloca o valor de \texttt{arg2 / arg1} no topo da pilha. Se a condição inicial (\texttt{sp > 1}) não for verdadeira, a função dá \textit{print} da mensagem \texttt{Not enought values in the stack"}.
+        
+        % função negação
+        \item \texttt{void neg(struct stack *stack)}: função responsável pela alteração do sinal do operando do topo da pilha, recebendo a mesma como argumento (\texttt{struct stack *stack}). Se \texttt{sp > 0}, esta função retira o último operando da pilha e guarda-o na variável inteira \texttt{arg} utilizando a função \texttt{pop}. Depois disso, e com recurso à função \texttt{push}, coloca o valor simétrico de \texttt{arg} (\texttt{-arg}) no topo da pilha. Caso não se verifique a condição, a função mostra \texttt{"Not enought values in the stack"}.
+        
+        % função troca
+        \item \texttt{void swap(struct stack *stack)}: função responsável pela troca dos dois operandos do topo da \texttt{stack} e que recebe a mesma como argumento. Esta função retira os dois operandos do topo da pilha do mesmo modo que a função \texttt{some} (utilizando a função \texttt{push}), caso \texttt{sp > 1}. Depois volta a introduzi-los na \texttt{stack} de modo a que o primeiro valor retirado seja o primeiro a ser colocado, sendo assim invertida a ordem dos mesmos. Caso a condição seja falsa, é apresentada a mensagem \texttt{"Not enought values in the stack"}.
+        
+        % função limpar
+        \item \texttt{void clear(struct stack *stack)}: função responsável pela limpeza da pilha recebendo a \texttt{stack} como argumento. Para executar a limpeza da \texttt{stack}, a função coloca o \textit{stack pointer} (\texttt{sp}) a 0 (zero elementos presentes na pilha). Deste modo, a \texttt{stack} não fica literalmente vazia, mas deixa-a pronta a receber novos valores sem serem utilizados os valores que já lá estavam guardados.
+        
+        % função clone
+        \item \texttt{void dup(struct stack *stack)}: função responsável por clonar o operando do topo da \texttt{stack}. Esta função recebe a \texttt{stack} como argumento e, se \texttt{sp > 0}, retira o operando do topo da pilha e guarda-o na variável local \texttt{arg}, utilizando a função \texttt{pop}. Depois, recorrendo à função \texttt{push}, coloca o valor de \texttt{arg} no topo da pilha duas vezes, clonando assim o valor. Se \texttt{sp < 0}, a função dá print de \texttt{"Not enought values in the stack"}.
+        
+        % função remover topo
+        \item \texttt{void drop(struct stack *stack)}: função que recebe a \texttt{stack} como argumento e é responsável pela remoção do operando do topo da pilha, mas apenas se \texttt{sp > 0}. Para isso retira da pilha o operando do topo e guarda-o numa variável que não será usada (\texttt{arg}).
+        
+        %função processar input
+        \item \texttt{int process\_input(char input[32], struct stack *stack)}: função que processa a \textit{input} do utilizador. Esta função recebe como argumentos a \texttt{input[32]} e a \texttt{struct stack *stack} e tem como variáveis locais a varíavel \texttt{int number} (número a ser guardado na stack), \texttt{int run} (controla a continuação da leitura do \texttt{input} do utilizador) e \texttt{int aux} (controla quando é colocado um novo número na \texttt{stack}). Esta função corre, principalmente, com um ciclo for (\texttt{for (int i = 0; run; i++)}) que encerra assim que o caractere nulo for lido (código ASCII - 0). Para cada caractere lido é avaliado se é um número ou uma expressão válida (que represente uma operação ou função). Se o caractere lido for um número, este é colocado na \texttt{stack} e atualiza a variável aux de modo a permitir a chamada da função \texttt{push} após encontrado o caractere ' ' (código ASCII - 32). Se encontrado o caractere nulo, é dado "\textit{push}" do \texttt{number} na \texttt{stack} se \texttt{aux==1} e coloca a variável \texttt{run} a 0 para terminar o ciclo for. A função avalia ainda se o caractere/ conjunto de caracteres correspondem aos caracteres definidos para as operações/funções desempenhadas pela calculadora, executando a função correspondente. Caso não se verifique igualdade de caracteres, a função apresenta a mensagem \texttt{"Unkown command. Type 'help' for available commands"}. Se a \texttt{input} do utilizador for "\texttt{off}", a função retorna 1, se não retorna 0. Por fim, e após a execução do ciclo for, a função mostra a pilha de operandos recorrendo à função \texttt{print}.
+    \end{itemize}
+    
+    % MAIN
+    \section{Função Main}
+        A função \texttt{void main()} é a função principal da calculadora. É nela que as funções são chamadas e é feita a interação com o utilizador. É feita a criação e inicialização da \texttt{stack} com 0 elementos e alocada na memória. Depois desta inicialização é feita a leitura do \texttt{input} do utilizador e guardado no \textit{array} de caracteres \texttt{input[32]}. Neste ponto o programa entra no ciclo infinito (\texttt{while(1)}) até que a função \texttt{process\_input} retorne 1 (\texttt{off = process\_input(input, stack)}). Neste ciclo, são apresentadas as operações introduzidas pelo utilizador e é pedida novamente uma nova \texttt{input} ao mesmo. No final do programa a mensagem \texttt{"Bye!"} é apresentada no ecrã e é libertada a memória que foi usada para a \texttt{stack} (\texttt{free(stack)}).
+    
+\end{document}

@@ -1,0 +1,15 @@
+1) Escolha um tópico e  3 palavras chave relacionadas com o resumo submetido na aula anterior.
+
+2) Escolha 2 fontes de informação
+
+3) realize pesquisas sistemáticas de artigos,
+
+- indicando as palavras chave e as combinações das palavras chave que usou,
+
+- selecionando os 10 primeiros artigos encontrados
+
+- para cada um faça uma filtragem simples: decida pelo título se é potencialmente interessante, os que passarem esta fase, leio o abstract  ou a introdução na falta de abstract e tome a decisão se é ou não interessante.
+
+4) se obteve pelo menos 10 referências que considerou interessantes submetam num formato simples em latex: as palavras chave usadas, as fontes/sites usados e a lista de referências.
+
+5) se obteve menos de 10, alargue um pouco a pesquisa (incluindo por exemplo outra fonte)  

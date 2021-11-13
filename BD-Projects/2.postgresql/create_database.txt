@@ -1,0 +1,542 @@
+-- criar base de dados
+create database Fas_de_Culinaria with
+    owner = postgres
+    encoding = 'UTF8'
+    connection limit = -1
+;
+
+-- tabela membro
+create table membro (
+    username varchar(20),
+    nome_membro varchar(256) not null,
+    pais_nascimento varchar(256) not null,
+    cidade_vive varchar(256) not null,
+    data_nascimento date not null,
+
+    primary key (username)
+);
+
+-- tabela amigo
+create table amigo (
+    username1 varchar(20),
+    username2 varchar(20),
+
+    foreign key (username1) references membro(username) on delete restrict,
+    foreign key (username2) references membro(username) on delete restrict,
+
+    primary key (username1, username2)
+);
+
+-- tabela receita
+create table receita (
+    identificador char(6),
+    nome_receita varchar(256) not null,
+    descricao text not null,
+    custo varchar(3) check (custo = '$' or custo = '$$' or custo = '$$$'),
+    tempo_confecao varchar(8) check (tempo_confecao = 'rapido' or tempo_confecao = 'medio' or tempo_confecao = 'lento'),
+
+    primary key (identificador)
+);
+
+-- tabela entrada
+create table entrada (
+    identificador char(6),
+
+    foreign key (identificador) references receita on delete restrict,
+
+    primary key (identificador)
+);
+
+-- tabela prato_principal
+create table prato_principal (
+    identificador char(6),
+    numero_porcoes integer check (numero_porcoes = 2 or numero_porcoes = 4 or numero_porcoes = 6),
+
+    foreign key (identificador) references receita on delete restrict,
+
+    primary key (identificador)
+);
+
+-- tabela sobremesa
+create table sobremesa (
+    identificador char(6),
+    facilidade varchar (8) check (facilidade = 'facil' or facilidade = 'medio' or facilidade = 'dificil'),
+
+    foreign key (identificador) references receita on delete restrict,
+
+    primary key (identificador)
+);
+
+-- tabela ingrediente
+create table ingrediente (
+    nome_ingrediente varchar(256),
+    quantidade real check (quantidade > 0),
+    unidade varchar(20) not null,
+
+    primary key (nome_ingrediente)
+);
+
+-- tabela fotografia
+create table fotografia (
+    id_fotografia char(6),
+    link text not null,
+
+    primary key (id_fotografia)
+);
+
+-- tabela rec_foto
+create table rec_foto (
+    identificador char(6),
+    id_fotografia char(6),
+
+    foreign key (identificador) references receita on delete restrict,
+    foreign key (id_fotografia) references fotografia on delete restrict,
+
+    primary key (identificador, id_fotografia)    
+);
+
+-- tabela gosta
+create table gosta (
+    username varchar(20),
+    identificador char(6),
+    nivel integer check (nivel > 0 or nivel < 4),
+
+    foreign key (identificador) references receita on delete restrict,
+    foreign key (username) references membro on delete restrict,
+
+    primary key (username, identificador)
+);
+
+-- tabela memb_rec
+create table memb_rec (
+    username varchar(20),
+    identificador char(6),
+
+    foreign key (identificador) references receita on delete restrict,
+    foreign key (username) references membro on delete restrict,
+
+    primary key (username, identificador)
+);
+
+-- tabela rec_ing
+create table rec_ing (
+    identificador char (6),
+    nome_ingrediente varchar(256),
+
+    foreign key (identificador) references receita on delete restrict,
+    foreign key (nome_ingrediente) references ingrediente on delete restrict,
+
+    primary key (nome_ingrediente, identificador)
+);
+
+---
+
+-- Receitas
+insert into receita values ('rec001', 'Ganso de vaca', 'Ganso de vaca guisado servido com legumes de outono e puré de batata.', '$$$', 'lento');
+insert into receita values ('rec002', 'Mousse de chocolate', 'Mousse de chocolate e coco.', '$', 'rapido');
+insert into receita values ('rec003', 'Mousse de chocolate', 'Mousse de chocolate enriquecida com natas e avelã.', '$$', 'rapido');
+insert into receita values ('rec004', 'Bacalhau à brás', 'Bacalhau com ovos, batatas e azeitonas.', '$$', 'rapido');
+insert into receita values ('rec005', 'Arroz de polvo malandrinho', 'É depois de cozido que o verdadeiro sabor sobressai e aí encontra o arroz que, cozido no mesmo caldo, ensopa todo o sabor e faz com que o polvo pareça um malandro a fugir do garfo.', '$$$', 'medio');
+insert into receita values ('rec006', 'Arroz de pato', 'Arroz de pato é sempre uma boa ideia para uma festa ou para um encontro com amigos. Aprenda a fazê-lo com quem sabe. Sai sempre bem.', '$$$', 'medio');
+insert into receita values ('rec007', 'Bifes de peru com natas', 'Bifes de peru com cogumelos e natas.', '$', 'rapido');
+insert into receita values ('rec008', 'Carbonara de salsicha', 'Esparguete com salsichas frescas e natas.', '$', 'medio');
+insert into receita values ('rec009', 'Cogumelos alheirados', 'Cogumelos recheados com alheira.', '$', 'rapido');
+insert into receita values ('rec010', 'Camembert derretido', 'Camembert no forno com ervas e alho.', '$', 'rapido');
+insert into receita values ('rec011', 'Arroz de pato', 'Arroz de pato dourado no forno.', '$$', 'lento');
+insert into receita values ('rec012', 'Massada de peixe', 'Uma refeição para todos.', '$$$', 'medio');
+insert into receita values ('rec013', 'Creme de cogumelos', 'Uma receita fácil e que pode ser um achego para os dias mais frios.', '$$', 'medio');
+insert into receita values ('rec014', 'Tiramisú', 'Quem ama doces fica com água na boca só de pensar em tiramisú.', '$$', 'medio');
+insert into receita values ('rec015', 'Torta de morango', 'Torta de mnorango recheada com cream cheese.', '$$', 'lento');
+insert into receita values ('rec016', 'Baba de camelo', 'Baba de camelo, a única baba de que não desvíamos o olhar.', '$', 'medio');
+insert into receita values ('rec017', 'Ovos de codorniz', 'Ovos de codorniz com crosta de frango.', '$$', 'rapido');
+insert into receita values ('rec018', 'Azeitonas de alho', 'O verdadeiro sabor da azeitona.', '$', 'rapido');
+insert into receita values ('rec019', 'Torradinhas de anchova', 'Para amantes de anchova.', '$', 'rapido');
+insert into receita values ('rec020', 'Doca da casa', 'O tradicional sabor do doce da casa diretamente na sau boca.', '$', 'lento');
+insert into receita values ('rec021', 'Pudim flan', 'Um sobremesa simplesmente divina, com um toque de caramelo e baunilha.', '$$', 'medio');
+
+-- Tipos de receita
+insert into entrada values ('rec005');
+insert into entrada values ('rec009');
+insert into entrada values ('rec010');
+insert into entrada values ('rec013');
+insert into entrada values ('rec017');
+insert into entrada values ('rec018');
+insert into entrada values ('rec019');
+
+insert into prato_principal values ('rec001', 4);
+insert into prato_principal values ('rec004', 4);
+insert into prato_principal values ('rec006', 6);
+insert into prato_principal values ('rec007', 2);
+insert into prato_principal values ('rec008', 2);
+insert into prato_principal values ('rec011', 4);
+insert into prato_principal values ('rec012', 4);
+
+insert into sobremesa values ('rec002', 'facil');
+insert into sobremesa values ('rec003', 'medio');
+insert into sobremesa values ('rec014', 'dificil');
+insert into sobremesa values ('rec015', 'dificil');
+insert into sobremesa values ('rec016', 'medio');
+insert into sobremesa values ('rec020', 'facil');
+insert into sobremesa values ('rec021', 'facil');
+
+-- Ingredientes
+insert into ingrediente values ('Ganso de vaca limpo', 800, 'g');
+insert into ingrediente values ('Cogumelos em quartos', 88, 'g');
+insert into ingrediente values ('Bacon em cubos', 50, 'g');
+insert into ingrediente values ('Vinho branco', 0.40, 'dl');
+insert into ingrediente values ('Cenouras em rodelas', 120, 'g');
+insert into ingrediente values ('Courgette', 80, 'g');
+insert into ingrediente values ('Nabo em macedónia', 60, 'g');
+insert into ingrediente values ('Ervilhas tortas', 80, 'g');
+insert into ingrediente values ('Puré desidratado de batata Knorr', 112, 'g');
+insert into ingrediente values ('Água', 600, 'ml');
+insert into ingrediente values ('Noz moscada', 0.40, 'g');
+insert into ingrediente values ('Tabulete de chocolate', 250, 'g');
+insert into ingrediente values ('Leite de côco', 50, 'ml');
+insert into ingrediente values ('Miolo de avelã', 10, 'g');
+insert into ingrediente values ('Ovo', 1, 'unidade');
+insert into ingrediente values ('Bacalhau desfiado', 600, 'g');
+insert into ingrediente values ('Cebola', 100, 'g');
+insert into ingrediente values ('Ovos', 6, 'unidade');
+insert into ingrediente values ('Azeitonas pretas', 50, 'g');
+insert into ingrediente values ('Polvo', 2.3, 'kg');
+insert into ingrediente values ('Pimento verde', 100, 'g');
+insert into ingrediente values ('Pimento vermelho', 100, 'g');
+insert into ingrediente values ('Arroz', 800, 'g');
+insert into ingrediente values ('Tomate em cubos', 100, 'g');
+insert into ingrediente values ('Vinho tinto', 100, 'ml');
+insert into ingrediente values ('Chouriço de carne', 150, 'g');
+insert into ingrediente values ('Toucinho fumado', 150, 'g');
+insert into ingrediente values ('Peito de pato', 4, 'unidade');
+insert into ingrediente values ('Bife de perú', 4, 'unidade');
+insert into ingrediente values ('Cogumelos laminados', 300, 'g');
+insert into ingrediente values ('Natas', 300, 'ml');
+insert into ingrediente values ('Salsichas frescas', 3, 'unidade');
+insert into ingrediente values ('Esparguete', 200, 'g');
+insert into ingrediente values ('Queijo parmesão ralado', 100, 'g');
+insert into ingrediente values ('Cogumelos grandes', 100, 'g');
+insert into ingrediente values ('Alheiras pequenas', 2, 'unidade');
+insert into ingrediente values ('Queijo mozarela ralado', 20, 'g');
+insert into ingrediente values ('Ovos de codorniz', 4, 'unidade');
+insert into ingrediente values ('Queijo camembert com 250g', 1, 'unidade');
+insert into ingrediente values ('Dente de alho grande', 1, 'unidade');
+insert into ingrediente values ('Orégãos', 1, 'colher de sopa');
+insert into ingrediente values ('Pato', 0.5, 'unidade');
+insert into ingrediente values ('Chouriço', 0.5, 'unidade');
+insert into ingrediente values ('Alho francês', 1, 'unidade');
+insert into ingrediente values ('Cebola grande', 1, 'unidade');
+insert into ingrediente values ('Cenoura', 2, 'unidade');
+insert into ingrediente values ('Dente de alho', 2, 'unidade');
+insert into ingrediente values ('Maruca', 700, 'g');
+insert into ingrediente values ('Camarão', 500, 'g');
+insert into ingrediente values ('Tomate', 200, 'g');
+insert into ingrediente values ('Cebola picada', 150, 'g');
+insert into ingrediente values ('Alho francês em rodelas', 100, 'g');
+insert into ingrediente values ('Massa macarrão', 250, 'g');
+insert into ingrediente values ('Cogumelo branco', 400, 'g');
+insert into ingrediente values ('Funcho em bolbo', 100, 'g');
+insert into ingrediente values ('Funcho em rama', 10, 'g');
+insert into ingrediente values ('Batata', 350, 'g');
+insert into ingrediente values ('Miolo de pinhão', 20, 'g');
+insert into ingrediente values ('Açúcar de confeiteiro', 150, 'g');
+insert into ingrediente values ('Chocolate amargo', 50, 'g');
+insert into ingrediente values ('Biscoitos champanhe', 24, 'unidade');
+insert into ingrediente values ('Expresso forte', 500, 'ml');
+insert into ingrediente values ('Chocolate em pó', 50, 'g');
+insert into ingrediente values ('Amido de milho', 100, 'g');
+insert into ingrediente values ('Farinha de trigo', 130, 'g');
+insert into ingrediente values ('Açúcar branco', 40, 'g');
+insert into ingrediente values ('Leite condensado', 1, 'lata');
+insert into ingrediente values ('Leite', 1, 'l');
+insert into ingrediente values ('Cream cheese', 1, 'embalagem');
+insert into ingrediente values ('Amêndoa palitada torrada', 40, 'g');
+insert into ingrediente values ('Peito de frango picado', 300, 'g');
+insert into ingrediente values ('Pão ralado', 50, 'g');
+insert into ingrediente values ('Pão de forma sem côdea', 3, 'unidade');
+insert into ingrediente values ('Anchovas', 6, 'unidade');
+insert into ingrediente values ('Bolacha maria', 100, 'g');
+insert into ingrediente values ('Chocolate granulado', 50, 'g');
+insert into ingrediente values ('Vagem de baunilha', 1, 'unidade');
+
+-- Ingredientes de cada receita
+insert into rec_ing values ('rec001', 'Ganso de vaca limpo');
+insert into rec_ing values ('rec001', 'Cogumelos em quartos');
+insert into rec_ing values ('rec001', 'Bacon em cubos');
+insert into rec_ing values ('rec001', 'Vinho branco');
+insert into rec_ing values ('rec001', 'Cenouras em rodelas');
+insert into rec_ing values ('rec001', 'Courgette');
+insert into rec_ing values ('rec001', 'Nabo em macedónia');
+insert into rec_ing values ('rec001', 'Ervilhas tortas');
+insert into rec_ing values ('rec001', 'Puré desidratado de batata Knorr');
+insert into rec_ing values ('rec001', 'Água');
+insert into rec_ing values ('rec001', 'Noz moscada');
+insert into rec_ing values ('rec002', 'Tabulete de chocolate');
+insert into rec_ing values ('rec002', 'Leite de côco');
+insert into rec_ing values ('rec003', 'Tabulete de chocolate');
+insert into rec_ing values ('rec003', 'Miolo de avelã');
+insert into rec_ing values ('rec003', 'Ovo');
+insert into rec_ing values ('rec004', 'Bacalhau desfiado');
+insert into rec_ing values ('rec004', 'Cebola');
+insert into rec_ing values ('rec004', 'Ovos');
+insert into rec_ing values ('rec004', 'Azeitonas pretas');
+insert into rec_ing values ('rec005', 'Polvo');
+insert into rec_ing values ('rec005', 'Pimento verde');
+insert into rec_ing values ('rec005', 'Pimento vermelho');
+insert into rec_ing values ('rec005', 'Arroz');
+insert into rec_ing values ('rec005', 'Água');
+insert into rec_ing values ('rec005', 'Tomate em cubos');
+insert into rec_ing values ('rec006', 'Arroz');
+insert into rec_ing values ('rec006', 'Vinho tinto');
+insert into rec_ing values ('rec006', 'Chouriço de carne');
+insert into rec_ing values ('rec006', 'Toucinho fumado');
+insert into rec_ing values ('rec006', 'Peito de pato');
+insert into rec_ing values ('rec007', 'Bife de perú');
+insert into rec_ing values ('rec007', 'Cogumelos laminados');
+insert into rec_ing values ('rec007', 'Natas');
+insert into rec_ing values ('rec008', 'Salsichas frescas');
+insert into rec_ing values ('rec008', 'Esparguete');
+insert into rec_ing values ('rec008', 'Queijo parmesão ralado');
+insert into rec_ing values ('rec009', 'Cogumelos grandes');
+insert into rec_ing values ('rec009', 'Alheiras pequenas');
+insert into rec_ing values ('rec009', 'Queijo mozarela ralado');
+insert into rec_ing values ('rec009', 'Ovos de codorniz');
+insert into rec_ing values ('rec010', 'Queijo camembert com 250g');
+insert into rec_ing values ('rec010', 'Dente de alho grande');
+insert into rec_ing values ('rec010', 'Orégãos');
+insert into rec_ing values ('rec011', 'Pato');
+insert into rec_ing values ('rec011', 'Chouriço');
+insert into rec_ing values ('rec011', 'Alho francês');
+insert into rec_ing values ('rec011', 'Cebola grande');
+insert into rec_ing values ('rec011', 'Cenoura');
+insert into rec_ing values ('rec011', 'Dente de alho');
+insert into rec_ing values ('rec012', 'Maruca');
+insert into rec_ing values ('rec012', 'Camarão');
+insert into rec_ing values ('rec012', 'Tomate');
+insert into rec_ing values ('rec012', 'Dente de alho');
+insert into rec_ing values ('rec012', 'Cebola picada');
+insert into rec_ing values ('rec012', 'Alho francês em rodelas');
+insert into rec_ing values ('rec012', 'Massa macarrão');
+insert into rec_ing values ('rec012', 'Cenoura');
+insert into rec_ing values ('rec013', 'Cebola grande');
+insert into rec_ing values ('rec013', 'Cogumelo branco');
+insert into rec_ing values ('rec013', 'Funcho em bolbo');
+insert into rec_ing values ('rec013', 'Funcho em rama');
+insert into rec_ing values ('rec013', 'Batata');
+insert into rec_ing values ('rec013', 'Miolo de pinhão');
+insert into rec_ing values ('rec014', 'Ovos');
+insert into rec_ing values ('rec014', 'Açúcar de confeiteiro');
+insert into rec_ing values ('rec014', 'Chocolate amargo');
+insert into rec_ing values ('rec014', 'Biscoitos champanhe');
+insert into rec_ing values ('rec014', 'Expresso forte');
+insert into rec_ing values ('rec014', 'Chocolate em pó');
+insert into rec_ing values ('rec014', 'Amêndoa palitada torrada');
+insert into rec_ing values ('rec015', 'Amido de milho');
+insert into rec_ing values ('rec015', 'Farinha de trigo');
+insert into rec_ing values ('rec015', 'Açúcar branco');
+insert into rec_ing values ('rec015', 'Ovos');
+insert into rec_ing values ('rec015', 'Leite condensado');
+insert into rec_ing values ('rec015', 'Leite');
+insert into rec_ing values ('rec015', 'Cream cheese');
+insert into rec_ing values ('rec016', 'Leite condensado');
+insert into rec_ing values ('rec016', 'Ovos');
+insert into rec_ing values ('rec017', 'Ovos de codorniz');
+insert into rec_ing values ('rec017', 'Peito de frango picado');
+insert into rec_ing values ('rec017', 'Pão ralado');
+insert into rec_ing values ('rec018', 'Azeitonas pretas');
+insert into rec_ing values ('rec018', 'Dente de alho');
+insert into rec_ing values ('rec019', 'Pão de forma sem côdea');
+insert into rec_ing values ('rec019', 'Anchovas');
+insert into rec_ing values ('rec020', 'Bolacha maria');
+insert into rec_ing values ('rec020', 'Açúcar branco');
+insert into rec_ing values ('rec020', 'Leite condensado');
+insert into rec_ing values ('rec020', 'Leite');
+insert into rec_ing values ('rec020', 'Natas');
+insert into rec_ing values ('rec020', 'Chocolate granulado');
+insert into rec_ing values ('rec020', 'Expresso forte');
+insert into rec_ing values ('rec021', 'Leite');
+insert into rec_ing values ('rec021', 'Ovos');
+insert into rec_ing values ('rec021', 'Açúcar branco');
+insert into rec_ing values ('rec021', 'Vagem de baunilha');
+
+-- Fotografias
+insert into fotografia values ('fot001', 'https://bit.ly/35GhtX8');
+insert into fotografia values ('fot002', 'https://bit.ly/3bG4CIg');
+insert into fotografia values ('fot003', 'https://bit.ly/3qnYCbg');
+insert into fotografia values ('fot004', 'https://bit.ly/2XHWrTA');
+insert into fotografia values ('fot005', 'https://bit.ly/3ifE9lK');
+insert into fotografia values ('fot006', 'https://bit.ly/38ITVCI');
+insert into fotografia values ('fot007', 'https://bit.ly/3sytPuf');
+insert into fotografia values ('fot008', 'https://bit.ly/38Lum45');
+insert into fotografia values ('fot009', 'https://bit.ly/38IF2jE');
+insert into fotografia values ('fot010', 'https://bit.ly/35D4Rji');
+insert into fotografia values ('fot011', 'https://bit.ly/3nLxiSg');
+insert into fotografia values ('fot012', 'https://bit.ly/3qhYeuL');
+insert into fotografia values ('fot013', 'https://bit.ly/35HDV1V');
+insert into fotografia values ('fot014', 'https://bit.ly/3oMRjcu');
+insert into fotografia values ('fot015', 'https://bit.ly/3qmUgAS');
+insert into fotografia values ('fot016', 'https://bit.ly/38JlknU');
+insert into fotografia values ('fot017', 'https://bit.ly/3nGmjd3');
+insert into fotografia values ('fot018', 'https://bit.ly/2XE4TTN');
+insert into fotografia values ('fot019', 'https://bit.ly/2XIJWqS');
+insert into fotografia values ('fot020', 'https://bit.ly/3nKHnyT');
+insert into fotografia values ('fot021', 'https://bit.ly/3qoC6yN');
+insert into fotografia values ('fot022', 'https://bit.ly/2N2tWxz');
+insert into fotografia values ('fot023', 'https://bit.ly/2XFaSYx');
+insert into fotografia values ('fot024', 'https://bit.ly/2N7oEkC');
+insert into fotografia values ('fot025', 'https://bit.ly/3oTo9sw');
+insert into fotografia values ('fot026', 'https://bit.ly/3qnx1Xp');
+insert into fotografia values ('fot027', 'https://bit.ly/3srHFOM');
+insert into fotografia values ('fot028', 'https://bit.ly/2NbsWrj');
+insert into fotografia values ('fot029', 'https://bit.ly/3iehaI3');
+insert into fotografia values ('fot030', 'https://bit.ly/39zsuub');
+insert into fotografia values ('fot031', 'https://bit.ly/3sw0eRR');
+insert into fotografia values ('fot032', 'https://bit.ly/39DSCUG');
+insert into fotografia values ('fot033', 'https://bit.ly/3bGq5Rh');
+insert into fotografia values ('fot034', 'https://bit.ly/3qnEnKv');
+insert into fotografia values ('fot035', 'https://bit.ly/3bIrUwT');
+
+-- Fotografias de cada receita
+insert into rec_foto values ('rec001', 'fot001');
+insert into rec_foto values ('rec001', 'fot002');
+insert into rec_foto values ('rec002', 'fot003');
+insert into rec_foto values ('rec003', 'fot004');
+insert into rec_foto values ('rec004', 'fot005');
+insert into rec_foto values ('rec004', 'fot006');
+insert into rec_foto values ('rec004', 'fot007');
+insert into rec_foto values ('rec004', 'fot008');
+insert into rec_foto values ('rec005', 'fot009');
+insert into rec_foto values ('rec005', 'fot010');
+insert into rec_foto values ('rec005', 'fot011');
+insert into rec_foto values ('rec005', 'fot012');
+insert into rec_foto values ('rec006', 'fot013');
+insert into rec_foto values ('rec006', 'fot014');
+insert into rec_foto values ('rec006', 'fot015');
+insert into rec_foto values ('rec007', 'fot016');
+insert into rec_foto values ('rec007', 'fot017');
+insert into rec_foto values ('rec008', 'fot018');
+insert into rec_foto values ('rec009', 'fot019');
+insert into rec_foto values ('rec010', 'fot020');
+insert into rec_foto values ('rec011', 'fot021');
+insert into rec_foto values ('rec012', 'fot022');
+insert into rec_foto values ('rec012', 'fot023');
+insert into rec_foto values ('rec013', 'fot024');
+insert into rec_foto values ('rec014', 'fot025');
+insert into rec_foto values ('rec014', 'fot026');
+insert into rec_foto values ('rec015', 'fot027');
+insert into rec_foto values ('rec016', 'fot028');
+insert into rec_foto values ('rec016', 'fot029');
+insert into rec_foto values ('rec017', 'fot030');
+insert into rec_foto values ('rec018', 'fot031');
+insert into rec_foto values ('rec019', 'fot032');
+insert into rec_foto values ('rec020', 'fot033');
+insert into rec_foto values ('rec021', 'fot034');
+insert into rec_foto values ('rec014', 'fot035');
+
+-- Membros
+insert into membro values('ochef', 'Zé Maria Nicolau', 'Portugal', 'Beja', '1994-11-03');
+insert into membro values('oaprendiz', 'Gordon Ramsay', 'Inglaterra', 'Ovar', '1995-05-23');
+insert into membro values('ocomilão', 'Carolina Gomes', 'Portugal', 'Évora', '2002-04-21');
+insert into membro values('operfecionista', 'Tomás Garcia', 'Irão', 'Cambridge', '2001-06-06');
+insert into membro values('odesastrado', 'Manuel Silva', 'Brasil', 'São Paulo', '2000-07-06');
+insert into membro values('oinovador', 'Maria Gonzales', 'Espanha', 'Madrid', '2000-01-01');
+insert into membro values('onovato', 'João Costa', 'Portugal', 'Évora', '1999-08-30');
+insert into membro values('olavapratos', 'Miguel Matos', 'Portugal', 'Chaves', '2003-08-31');
+insert into membro values('osubchef', 'Diogo Faustino', 'Portugal', 'Beja', '1999-09-13');
+insert into membro values('ocriador', 'André Rato', 'Portugal', 'Évora', '2000-05-22');
+
+-- Amigos
+insert into amigo values('ochef', 'osubchef');
+insert into amigo values('ochef', 'oaprendiz');
+insert into amigo values('ochef', 'oinovador');
+insert into amigo values('oaprendiz', 'ocomilão');
+insert into amigo values('oaprendiz', 'onovato');
+insert into amigo values('ocomilão', 'operfecionista');
+insert into amigo values('operfecionista', 'ochef');
+insert into amigo values('odesastrado', 'ocomilão');
+insert into amigo values('odesastrado', 'olavapratos');
+insert into amigo values('oinovador', 'osubchef');
+insert into amigo values('onovato', 'ochef');
+insert into amigo values('olavapratos', 'oaprendiz');
+insert into amigo values('osubchef', 'onovato');
+insert into amigo values('ocriador', 'osubchef');
+insert into amigo values('ocriador', 'ochef');
+insert into amigo values('ocriador', 'oinovador');
+
+-- Gosta
+insert into gosta values ('ochef', 'rec003', 2);
+insert into gosta values ('ochef', 'rec005', 1);
+insert into gosta values ('ochef', 'rec004', 3);
+insert into gosta values ('ochef', 'rec008', 2);
+insert into gosta values ('ochef', 'rec017', 3);
+insert into gosta values ('ochef', 'rec011', 2);
+insert into gosta values ('ochef', 'rec018', 1);
+insert into gosta values ('ochef', 'rec009', 3);
+insert into gosta values ('ochef', 'rec013', 2);
+insert into gosta values ('ochef', 'rec019', 3);
+insert into gosta values ('oaprendiz', 'rec006', 3);
+insert into gosta values ('oaprendiz', 'rec012', 2);
+insert into gosta values ('oaprendiz', 'rec016', 3);
+insert into gosta values ('oaprendiz', 'rec014', 1);
+insert into gosta values ('ocomilão', 'rec010', 2);
+insert into gosta values ('ocomilão', 'rec011', 1);
+insert into gosta values ('ocomilão', 'rec004', 2);
+insert into gosta values ('ocomilão', 'rec001', 3);
+insert into gosta values ('ocomilão', 'rec009', 3);
+insert into gosta values ('ocomilão', 'rec013', 3);
+insert into gosta values ('operfecionista', 'rec012', 3);
+insert into gosta values ('operfecionista', 'rec005', 1);
+insert into gosta values ('operfecionista', 'rec009', 2);
+insert into gosta values ('operfecionista', 'rec002', 3);
+insert into gosta values ('odesastrado', 'rec005', 2);
+insert into gosta values ('odesastrado', 'rec008', 2);
+insert into gosta values ('odesastrado', 'rec016', 1);
+insert into gosta values ('odesastrado', 'rec003', 1);
+insert into gosta values ('oinovador', 'rec009', 1);
+insert into gosta values ('oinovador', 'rec006', 3);
+insert into gosta values ('oinovador', 'rec020', 2);
+insert into gosta values ('oinovador', 'rec017', 3);
+insert into gosta values ('onovato', 'rec007', 2);
+insert into gosta values ('onovato', 'rec003', 3);
+insert into gosta values ('onovato', 'rec009', 1);
+insert into gosta values ('onovato', 'rec017', 3);
+insert into gosta values ('olavapratos', 'rec015', 2);
+insert into gosta values ('olavapratos', 'rec009', 2);
+insert into gosta values ('olavapratos', 'rec011', 3);
+insert into gosta values ('olavapratos', 'rec003', 3);
+insert into gosta values ('osubchef', 'rec011', 3);
+insert into gosta values ('osubchef', 'rec010', 3);
+insert into gosta values ('osubchef', 'rec015', 2);
+insert into gosta values ('osubchef', 'rec001', 1);
+insert into gosta values ('ocriador', 'rec002', 1);
+insert into gosta values ('ocriador', 'rec017', 3);
+insert into gosta values ('ocriador', 'rec010', 3);
+insert into gosta values ('ocriador', 'rec005', 3);
+insert into gosta values ('ocriador', 'rec001', 3);
+insert into gosta values ('osubchef', 'rec002', 2);
+insert into gosta values ('olavapratos', 'rec002', 3);
+insert into gosta values ('onovato', 'rec002', 3);
+insert into gosta values ('oinovador', 'rec002', 3);
+insert into gosta values ('ocomilão', 'rec002', 3);
+
+-- Receitas de cada membro
+insert into memb_rec values('ochef', 'rec001');
+insert into memb_rec values('ochef', 'rec002');
+insert into memb_rec values('oaprendiz', 'rec003');
+insert into memb_rec values('oaprendiz', 'rec004');
+insert into memb_rec values('ocomilão', 'rec005');
+insert into memb_rec values('ocomilão', 'rec006');
+insert into memb_rec values('operfecionista', 'rec007');
+insert into memb_rec values('operfecionista', 'rec008');
+insert into memb_rec values('odesastrado', 'rec009');
+insert into memb_rec values('odesastrado', 'rec010');
+insert into memb_rec values('oinovador', 'rec011');
+insert into memb_rec values('oinovador', 'rec012');
+insert into memb_rec values('onovato', 'rec013');
+insert into memb_rec values('onovato', 'rec014');
+insert into memb_rec values('olavapratos', 'rec015');
+insert into memb_rec values('olavapratos', 'rec016');
+insert into memb_rec values('osubchef', 'rec017');
+insert into memb_rec values('osubchef', 'rec018');
+insert into memb_rec values('ocriador', 'rec019');
+insert into memb_rec values('ocriador', 'rec020');
+insert into memb_rec values('ocriador', 'rec021');

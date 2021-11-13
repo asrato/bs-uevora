@@ -1,0 +1,176 @@
+\documentclass[12pt, a4paper]{article} 
+\usepackage[a4paper, total={16cm, 24cm}]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} 
+\usepackage{listings}
+    \renewcommand\lstlistingname{Código}
+    \lstset{numbers=left,
+            numberstyle=\tiny,
+            numbersep=5pt,
+            basicstyle=\footnotesize\ttfamily,
+            frame=tb,
+            rulesepcolor=\color{gray},
+            breaklines=true}
+\usepackage[none]{tocbibind}
+\usepackage{hyperref}
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,    
+    urlcolor=blue,
+}
+
+\begin{document}
+    \clearpage
+    \begin{figure}
+        \centering
+        \includegraphics[]{logouni.png}
+    \end{figure}
+
+    \title{RPN - Reverse Polish Notation\\Calculadora em Assembly MIPS}
+
+    \author{André Rato nº\texttt{45517} & José Alexandre nº\texttt{45223}}
+
+    \date{Maio\\Ano Letivo 2019/2020}
+
+    \maketitle
+    
+    \begin{description}
+        \centering
+        \item Arquitetura de Sistemas e Computadores I
+        \item Prof. Miguel Barão
+    \end{description}
+
+    \thispagestyle{empty}
+    \newpage
+    
+    % Índice
+    
+    \renewcommand{\contentsname}{Índice}
+    \tableofcontents
+    \newpage
+    
+    % Introdução
+    \section{Introdução}
+        Este relatório consiste na explicação da organização do nosso trabalho. À semelhança com a calculadora feita na linguagem C, este programa terá que ler \textit{strings} e analisá-las caractere a caractere, de modo a operar segundo as instruções do utilizador.
+        
+    % Registos Utilizados
+    \section{Registos Utilizados}
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{|c|l|}
+                \hline
+                Registos & Descrição\\ 
+                \hline
+                \texttt{\$a0} & Guarda os endereços a serem usados como argumentos na função \texttt{syscall}\\
+                \texttt{\$a1} & Guarda os valores a serem usados como argumentos na função \texttt{syscall}\\
+                \hline
+                \texttt{\$s0} & Registo auxiliar de comparação usado na função print\\
+                \texttt{\$s1} & Registo auxiliar usado para percorrer a pilha na função print\\
+                \texttt{\$s2} & Guarda o endereço da pilha quando esta tem só um elemento\\
+                \texttt{\$s3} & Guarda o endereço da pilha quando esta tem dois elementos\\
+                \texttt{\$s4} & Guarda o endereço da pilha quando esta tem zero elementos\\
+                \texttt{\$s5} & Guarda o endereço da pilha quando esta tem dez elementos\\
+                \texttt{\$s6} & Guarda o endereço inicial da input\\
+                \texttt{\$s7} & Registo que guarda o endereço da pilha onde se colocará um novo número\\
+                \hline
+                \texttt{\$t0} & Registo auxilixar usado na conversão de números em \textit{string} para inteiros\\
+                \texttt{\$t1} & Registo auxiliar usado na colocação de elementos na pilha (se \texttt{\$t1=1} coloca)\\
+                \texttt{\$t2} & Guarda o byte que está a ser analisado\\
+                \texttt{\$t3} & Registo auxiliar para retirar elementos da pilha nas diversas operações\\
+                \texttt{\$t4} & Registo auxiliar para retirar elementos da pilha nas diversas operações\\
+                \texttt{\$t5} & Registo auxiliar usado na conversão dos números (\texttt{\$t3=10})\\
+                \hline
+                \texttt{\$v0} & Guarda os valores a serem usados como discriminação da função \texttt{syscall}\\
+                \hline
+            \end{tabular}
+        \end{table}
+        
+    % Função Principal - Main
+    \section{Função Principal - Main}
+    A \textit{main} é a função principal. É nela que são escolhidos alguns registos (\texttt{\$s2, \$s3, \$s4, \$s5} e \texttt{\$s7}) que serão utilizados para controlo do número de elementos (\texttt{\$s2, \$s3, \$s4} e \texttt{s5}) e para controlo da pilha em si (\texttt{\$s7}).\\
+    Depois desta inicialização, é mostrado ao utilizador o cabeçalho (label \texttt{intro}), seguida da stack, inicialmente vazia.
+    Após isto, o programa entra num \texttt{ciclo}.
+    
+    % Ciclo de Leitura da Input
+    \section{Ciclo de Leitura da Input}
+    É neste ciclo (\texttt{loop}) que é lida a \textit{input} do utilizador, e guardada no espaço alocado para ela (\texttt{input: .space 64}), através do comando \texttt{syscall} com o valor 8 em \texttt{v0}.
+    Antes de o programa entrar num novo ciclo (\texttt{loop}), o valor presente em \texttt{a0} é movido para o registo \texttt{\$v0}, de modo a guardar o endereço da \texttt{input} para ser utilizado mais tarde, e os endereços \texttt{\$t0} e \texttt{\$t1} são inicializados com 0, valores estes que terão grande importância quando a função \texttt{numeros} for chamada.
+    
+    % Ciclo de Análise da Input
+    \section{Ciclo de Análise da Input}
+    Aqui é feita toda a análise da \texttt{input}. Para a execção desta análise, a \texttt{input} é lida caractere a caractere, à semelhança do que foi feito na calculadora em C. Se o caractere lido corresponder a algum dos caracteres atribuídos a funções (\texttt{+, -, *, /}), o programa realizará a função correspondente. Caso encontre um caractere, cujo código ASCII esteja compreendido entre 48 e 57 (inclusíve), o programa irá fazer a conversão dos mesmo para inteiro, utilizando a seguinte fórmula: \texttt{t0 = t0 * 10 + (t2 - 48)}. Deste modo, é permitida a colocação deste números na pilha.\\
+    Se o caractere lido for uma letra, o programa analisará uma sequência de letras e comparará a outras sequências predefinidas associadas às operações (\texttt{neg} para a negação, \texttt{swap} para a troca, \texttt{clear} para a limpeza da pilha, \texttt{dup} para clonar, \texttt{drop} para remover o elemento da pilha, \texttt{off} para desligar a calculadora e \texttt{help} para mostrar todos os comandos).\\
+    Caso o caractere lido seja um espaço ou uma quebra de linha ('\texttt{$\backslash$n}'), o programa verifica se o caractere anterior é um número ou não, e se for, coloca-o na \texttt{stack}.\\
+    Se não houver correspondência com nenhum deste fatores, é apresentada a mensagem "Unkown command. Type 'help' for available commands", voltando ao início do \texttt{ciclo}.
+    
+    % Funções
+    \section{Funções}
+    
+        % Funções soma, subt, prod, divi
+        \subsection{Funções soma, subt, prod e divi}
+        Caso o caractere presente em \texttt{\$t1} (caractere a ser analisado) seja \texttt{'+', '-', '*'} ou \texttt{'/'}, o programa realiza a função correspondente.\\
+        Começa por verificar se o número de elementos na pilha é suficiente para realizar a operação (\texttt{blt \$s7,\$s3, elementosInsuficientes}), e caso sejam insuficientes, apresenta a mensagem "\textit{Not enought values in the stack!}".\\
+        Caso os elementos sejam suficientes, o programa retira os dois últimos elementos da pilha e coloca o resultado na mesma.\\
+        No caso da divisão (\texttt{divi}), se o último elemento for 0 (divisor = 0), o programa mostra a mensagem "\textit{Error! Division by 0 is impossible!}".
+        
+        % Função nega
+        \subsection{Função nega}
+        Caso o caractere presente em \texttt{\$t1} seja \texttt{'n'}, o programa verifica se os próximos caracteres na input são \texttt{'e'} e \texttt{'g'}.\\
+        Caso isso aconteça verifica ainda se o caractere seguinte é \texttt{'$\backslash$n'} ou \texttt{' '}. Se isso não acontecer o programa mostra a mensagem \textit{"Unkown command. Type 'help' for available commands!"}.\\
+        Se acontecer o programa retira o valor do topo da \textit{stack}, caso exista, e coloca o simétrico desse valor de volta na pilha.
+        
+        % Função swap
+        \subsection{Função swap}
+        Caso o caractere presente em \texttt{\$t1} seja \texttt{'s'}, o programa verifica se os próximos caracteres na input são \texttt{'w', 'a'} e \texttt{'p'}.\\
+        Caso isso aconteça verifica ainda se o caractere seguinte é \texttt{'$\backslash$n'} ou \texttt{' '}. Se isso não acontecer o programa mostra a mensagem \textit{"Unkown command. Type 'help' for available commands!"}.\\
+        Se acontecer o programa retira os dois valores do topo da \textit{stack}, caso existam, e coloca-os de volta na pilha pela ordem contrária.
+        
+        % Função clear
+        \subsection{Função clear}
+        Caso o caractere presente em \texttt{\$t1} seja \texttt{'c'}, o programa verifica se os próximos caracteres na input são \texttt{'l', 'e', 'a'} e \texttt{'r'}.\\
+        Caso isso aconteça verifica ainda se o caractere seguinte é \texttt{'$\backslash$n'}. Se isso não acontecer o programa mostra a mensagem \textit{"Unkown command. Type 'help' for available commands!"}.\\
+        Se acontecer o programa coloca \$s7 no valor inicial (endereço da label \texttt{pilha}), resetando assim a pilha.
+        Se a pilha já estiver vazia, o programa mostra a mensagem "\textit{Stack is already empty!}".
+        
+        % Função "funcoesd"
+        \subsection{Função ''funcoesd''}
+        Nesta função, são avaliadas duas possibilidades em relação a operações: podemos ter a função \texttt{dup} e a função \texttt{drop}. Desde modo, os caracteres são avaliados, à semelhança do resto das funções (caractere a caractere, e confirmando se após ambas as palavras o caractere seguinte é '$\backslash$n' ou ' ').\\
+        Caso a expressão lida seja "dup", o programa recua uma posição na pilha, retira para \$t3 o último valor da pilha, avança para a posição em que estava e volta a colocar o mesmo valor na pilha, avançando, novamente, uma posição na pilha.\\
+        Já no caso de a expressão ser "drop", o programa retrocede apenas uma posição na pilha, dando parecendo assim que o valor foi removido.\\
+        Ambas estas duas funções avaliam se existem elementos suficientes para operar. Caso não existam, o programa apresenta a mensagem "\textit{Not enough values in the stack}".
+        
+        % Função help
+        \subsection{Função help}
+        Caso o caractere lido seja \texttt{'h'} e os seguintes \texttt{'e', 'l'} e \texttt{'p'}, seguidos de \texttt{'$\backslash$n'}, o programa mostra uma lista de comandos (\textit{string} guardada na label \texttt{hlptxt}). Depois disto, o programa volta para o \texttt{ciclo}, pronto para receber outra input do utilizador.
+        
+        % Função espaco
+        \subsection{Função espaco}
+        Se o caractere lido for um espaço (' '), o programa verifica duas condições: verifica se o caractere anterior é um número ou não, e verifica se a pilha está cheia ou não (se já contém 10 elementos).\\
+        Caso o caractere anterior seja um número e a pilha não esteja cheia, o programa coloca o número na pilha e dá reset às duas "variáveis" de controlo (registos \$t0 e \$t1).\\
+        Se o caractere anterior não for número o programa volta para o \texttt{loop} e se a pilha estiver cheia, o programa mostra a mensagem "\textit{Stack is full}".
+        
+        \newpage
+        
+        % Função barraN
+        \subsection{Função barraN}
+        A função \texttt{barraN} funciona de forma semelhante à função \texttt{espaco}, mas em vez de voltar ao \texttt{loop} caso o caractere anterior não seja um número, o programa dá print (através da função \texttt{print}) e depois volta para o ciclo.
+        
+        % Função print
+        \subsection{Função print}
+        Esta função começa por guardar em \texttt{\$s0} o endereço da última posição da pilha (onde será colocado o próximo valor). Depois disso, guarda o endereço da pilha em \texttt{\$s1} (endereço do primeiro elemento da pilha).\\
+        Depois disso dá print da \textit{string "Stack:"} e verifica se a stack está vazia ou não. Se estiver vazia, o programa mostra a mensagem "(empty)". Se não estiver vazia, o programa mostra os elementos da pilha começando no primeiro (\texttt{\$s1}) enquanto este, incrementação após incrementação, continue a ser menor que \texttt{\$s0}, mostrando assim a pilha, deixando o primeiro elemento em cima, e o último elemento em baixo.
+        
+        % Função sair
+        \subsection{Função sair}
+        Esta é a função que termina o programa. Apenas é chamada (pela função \texttt{off}) se a input for \texttt{"off"}.\\
+        O programa mostra a mensagem \textit{"Bye!"} e termina colocando o valor \texttt{10} em \texttt{\$v0} (\texttt{li \$v0, 10}), seguido de \texttt{syscall}.
+        
+        % Observações
+        \section{Observações}
+        Esta calculadora foi desenvolvida utilizando o sistema operativo \textit{Windows 10}. É possível que, quando corrida em \textit{Linux}, se verifique alguns erros em relação aos caracteres e à forma como as \textit{strings} são analisadas.\\
+        Quando a \textit{input} introduzida é apenas uma instrução seguida de um '$\backslash$n', é lido o caractere seguinte (caractere nulo). Se as linhas 63 e 64 não estivessem presentes, o programa apresentaria a mensagem de \textit{"Unkown command. Type 'help' for available commands"}.
+        
+\end{document}

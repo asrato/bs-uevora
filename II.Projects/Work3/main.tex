@@ -1,0 +1,39 @@
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Citações bibliográficas e Normas 23 de março}
+\author{André Rato[45517], Diogo Faustino[40968], José Alexandre[45223]}
+\date{23 de março de 2021}
+
+\usepackage[sorting=none]{biblatex}
+\bibliography{references}
+\PassOptionsToPackage{hyphens}{url}\usepackage{url}
+
+%%% Elimiação do overlow das references %%%
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+\begin{document}
+\maketitle
+
+\section{Introdução}
+Este trabalho foi realizado com o intuito de praticar a utilização do \textbf{bibtex}.
+
+\section{Citações}
+% yahoo overfitting
+\cite{ibmcloud} \cite{elitedatascience} \cite{geeksover}\\
+% google overfitting
+\cite{jmlr1} \cite{jmlr2}\\
+% yahoo bias + variance
+\cite{medium} \cite{medium2} \cite{analyticsvidhya}\\
+% google scholar bias + variance
+\cite{citeseerx} \cite{yaroslavvb}\\
+% yahoo overfitting + bias + variance
+\cite{towardsdatascience} \cite{dustinstansbury}\\
+%google overfitting + bias + variance
+\cite{pnas} \cite{springer}\\
+
+\printbibliography[title=Referências]
+
+\end{document}
