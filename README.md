@@ -4,22 +4,22 @@ Repository with all my graduation projects
 ## Repository Structure
 ```
 🗂 graduation-uevora
- ├── 📂 First Semester
+ ├── 📂 1st Semester
  |    ├── 📘 P1-Project
  |    └── 📘 SD-Project
- ├── 📂 Second Semester
+ ├── 📂 2nd Semester
  |    ├── 📘 AC1-Projects
  |    └── 📘 P2-Project
- ├── 📂 Thrid Semester
+ ├── 📂 3rd Semester
  |    ├── 📗 BD-Projects
  |    ├── 📗 CG-Projects
  |    └── 📗 EDA1-Projects
- ├── 📂 Fourth Semester
+ ├── 📂 4th Semester
  |    ├── 📗 EDA2-Projects
  |    ├── 📗 II-Projects
  |    ├── 📗 RC-Project
  │    └── 📗 SO-Projects
- ├── 📂 Fifth Semester
- ├── 📂 Sixth Semester
+ ├── 📂 5th Semester
+ ├── 📂 6th Semester
  └── 📄 README.md
 ```
