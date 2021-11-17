@@ -19,7 +19,6 @@ Repository with all my graduation projects
  |    ├── 📗 II-Projects
  |    ├── 📗 RC-Project
  │    └── 📗 SO-Projects
- ├── 📂 5th Semester
- ├── 📂 6th Semester
+ ├── 📄 .gitattributes
  └── 📄 README.md
 ```
