@@ -1,5 +1,6 @@
-# Graduation@UEvora
-Repository with all my graduation projects
+<h1 align="center">📚 Graduation @ UÉvora 📚</h1>
+
+This repository contains all my graduation projects
 <!-- 📙 -->
 ## Repository Structure
 ```
