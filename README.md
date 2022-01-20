@@ -1,7 +1,6 @@
 <h1 align="center">📚 Graduation @ UÉvora 📚</h1>
 
 This repository contains all my graduation projects
-<!-- 📙 -->
 ## Repository Structure
 ```
 🗂 graduation-uevora
@@ -20,6 +19,12 @@ This repository contains all my graduation projects
  |    ├── 📗 II-Projects
  |    ├── 📗 RC-Project
  │    └── 📗 SO-Projects
+ ├── 📂 5th Semester
+ |    ├── 📙 AA-Projects
+ |    ├── 📙 MDS-Projects
+ |    ├── 📙 P3-Project
+ |    ├── 📙 SD-Projects
+ │    └── 📙 TW-Projects
  ├── 📄 .gitattributes
  └── 📄 README.md
 ```
