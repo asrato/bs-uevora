@@ -25,6 +25,5 @@ This repository contains all my graduation projects
  |    ├── 📙 P3-Project
  |    ├── 📙 SD-Projects
  │    └── 📙 TW-Projects
- ├── 📄 .gitattributes
  └── 📄 README.md
 ```
