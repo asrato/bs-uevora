@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Classificação Masculina - Beer Mile</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <script type="text/javascript" src="../utils.js"></script>
+</head>
+
+<body onload="carregarPagina('f')">
+    <div id="cabecalho">
+        <div id="titulo">
+            <img id="logo" alt="logo" src="../images/logo.png" height="70%">
+            <div id="empresa">
+                <h1 id="nome">Beer Mile</h1>
+                <div id="slogan">: a corrida mais portuguesa de Portugal!</div>
+            </div>
+        </div>
+        <div id="navegacao">
+            <div class="item">
+                <a href="../index.html">
+                    <button class="item-butao">Inicio</button>
+                </a>
+            </div>
+            <div class="item">
+                <button class="item-butao">Eventos</button>
+                <div class="item-subitems">
+                    <a href="../eventos/inscricao.html">Inscrição</a>
+                    <a href="../eventos/a_decorrer.html">Eventos a Decorrer</a>
+                    <a href="../eventos/realizados.html">Eventos Realizados</a>
+                    <a href="../eventos/proximos.html">Próximos Eventos</a>
+                    <a href="../eventos/procurar.html">Procurar Eventos</a>
+                </div>
+            </div>
+            <div class="item">
+                <button class="item-butao">Classificações</button>
+                <div class="item-subitems">
+                    <a href="geral.html">Classificação Geral</a>
+                    <a href="masculino.html">Classificação Masculina</a>
+                    <a href="feminino.html">Classificação Feminina</a>
+                </div>
+            </div>
+            <div class="item">
+                <a href="../sobre-nos.html">
+                    <button class="item-butao">Sobre Nós</button>
+                </a>
+            </div>
+            <div class="item">
+                <button class="item-butao">Admin</button>
+                <div class="item-subitems">
+                    <a href="../admin/criar-evento.html">Criar Evento</a>
+                    <a href="../admin/registar-tempos.html">Registar Tempos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="conteudo">
+        <div id="conteudo-classificacao">
+            <div id="filtros">
+                <form name="filtros-classificacao" id="filtros-classificacao" onchange="mudarFiltros()"
+                    onsubmit="prevenirReload(event)">
+                    <div class="filtros-inline">
+                        <p>Evento</p>
+                        <select name="eventos" id="eventos" onchange="mudarEvento()">
+                        </select>
+                    </div>
+                    <div class="filtros-inline">
+                        <p>Nome</p>
+                        <input name="filtro" checked="checked" value="nome" type="radio">
+                        <input name="filtro-valor" type="text" id="filtro-nome">
+                    </div>
+                    <div class="filtros-inline">
+                        <p>Escalão</p>
+                        <input name="filtro" value="escalao" type="radio">
+                        <select id="filtro-escalao">
+                            <option value="jun">Júnior</option>
+                            <option value="sen">Sénior</option>
+                            <option value="vet35">Veterano 35</option>
+                            <option value="vet40">Veterano 40</option>
+                            <option value="vet50">Veterano 50</option>
+                            <option value="vet60">Veterano 60</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div id="top3">
+                <button onclick="clicarTop3('f')" type="button">TOP 3</button>
+            </div>
+            <div id="tabela">
+                <h2>Classificação Feminina</h2>
+                <table id="tabela-classificacao">
+                    <tr>
+                        <th class="tabela-classificacao-cabecalho" style="width: 5%">Posição</th>
+                        <th class="tabela-classificacao-cabecalho" style="width: 40%">Escalão</th>
+                        <th class="tabela-classificacao-cabecalho" style="width: 45%">Nome</th>
+                        <th class="tabela-classificacao-cabecalho" style="width: 10%">Tempo</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div id="rodape">
+        <div id="direitos">
+            <p>André Rato & João Rouxinol @ TW2021<br />Todos os direitos reservados</p>
+        </div>
+        <div id="patrocinadores">
+            <p>Patrocinadores Oficiais:</p>
+            <a target="_blank" href="https://www.adidas.pt/">
+                <img alt="adidas" src="../images/adidas.png" height="50%">
+            </a>
+            <a target="_blank" href="http://www.sagres.pt/">
+                <img alt="sagres" src="../images/sagres.png" height="50%">
+            </a>
+            <a target="_blank" href="https://www.uevora.pt/">
+                <img alt="uevora" src="../images/uevora.png" height="60%">
+            </a>
+        </div>
+        <div id="redessociais">
+            <p>Visite-nos em:</p>
+            <a target="_blank" href="https://www.instagram.com/">
+                <img alt="instagram" src="../images/instagram.png" height="60%">
+            </a>
+        </div>
+    </div>
+    <div id="modal" class="modal">
+        <div id="modal-conteudo" class="modal-conteudo">
+            <span class="fechar" onclick="fecharModal()">&times;</span>
+            <h2 id="nome-evento">TOP 3 Feminino</h2>
+            <div id="podio">
+                <div class="lugar">
+                    <h4>1º Lugar</h4>
+                    <img src="../images/participantes/woman.png" width="50%">
+                    <p id="nome-lugar1"></p>
+                </div>
+                <div class="lugar">
+                    <h4>2º Lugar</h4>
+                    <img src="../images/participantes/woman1.png" width="50%">
+                    <p id="nome-lugar2"></p>
+                </div>
+                <div class="lugar">
+                    <h4>3º Lugar</h4>
+                    <img src="../images/participantes/woman2.png" width="50%">
+                    <p id="nome-lugar3"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

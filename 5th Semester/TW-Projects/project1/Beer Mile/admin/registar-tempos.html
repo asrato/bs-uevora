@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registar Tempos - Beer Mile</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <script type="text/javascript" src="../utils.js"></script>
+</head>
+
+<body onload="carregarRegistarTempos()">
+    <div id="cabecalho">
+        <div id="titulo">
+            <img id="logo" alt="logo" src="../images/logo.png" height="70%">
+            <div id="empresa">
+                <h1 id="nome">Beer Mile</h1>
+                <div id="slogan">: a corrida mais portuguesa de Portugal!</div>
+            </div>
+        </div>
+        <div id="navegacao">
+            <div class="item">
+                <a href="../index.html">
+                    <button class="item-butao">Inicio</button>
+                </a>
+            </div>
+            <div class="item">
+                <button class="item-butao">Eventos</button>
+                <div class="item-subitems">
+                    <a href="../eventos/inscricao.html">Inscrição</a>
+                    <a href="../eventos/a_decorrer.html">Eventos a Decorrer</a>
+                    <a href="../eventos/realizados.html">Eventos Realizados</a>
+                    <a href="../eventos/proximos.html">Próximos Eventos</a>
+                    <a href="../eventos/procurar.html">Procurar Eventos</a>
+                </div>
+            </div>
+            <div class="item">
+                <button class="item-butao">Classificações</button>
+                <div class="item-subitems">
+                    <a href="../classificacoes/geral.html">Classificação Geral</a>
+                    <a href="../classificacoes/masculino.html">Classificação Masculina</a>
+                    <a href="../classificacoes/feminino.html">Classificação Feminina</a>
+                </div>
+            </div>
+            <div class="item">
+                <a href="../sobre-nos.html">
+                    <button class="item-butao">Sobre Nós</button>
+                </a>
+            </div>
+            <div class="item">
+                <button class="item-butao">Admin</button>
+                <div class="item-subitems">
+                    <a href="criar-evento.html">Criar Evento</a>
+                    <a href="registar-tempos.html">Registar Tempos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="conteudo">
+        <div class="inscricao-container">
+            <h1>Registar Tempos</h1>
+            <form class="inscricao-form" name="inscricao-form" onsubmit="registarTempos(event)" id="evento-criar">
+                <div class="inscricao-campo">
+                    <label>Evento</label>
+                    <select id="opcao-eventos" name="evento" onchange="carregarParticipantes()">
+                    </select>
+                </div>
+                <div class="inscricao-campo">
+                    <label>Participante</label>
+                    <select id="opcao-participantes" name="dorsal">
+                    </select>
+                </div>
+                <div class="inscricao-campo">
+                    <label>Tempo de Prova (em segundos)</label>
+                    <input min="1" name="tempo" type="number">
+                </div>
+                <div class="inscricao-butao">
+                    <button type="submit">Registar Tempo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="rodape">
+        <div id="direitos">
+            <p>André Rato & João Rouxinol @ TW2021<br />Todos os direitos reservados</p>
+        </div>
+        <div id="patrocinadores">
+            <p>Patrocinadores Oficiais:</p>
+            <a target="_blank" href="https://www.adidas.pt/">
+                <img alt="adidas" src="../images/adidas.png" height="50%">
+            </a>
+            <a target="_blank" href="http://www.sagres.pt/">
+                <img alt="sagres" src="../images/sagres.png" height="50%">
+            </a>
+            <a target="_blank" href="https://www.uevora.pt/">
+                <img alt="uevora" src="../images/uevora.png" height="60%">
+            </a>
+        </div>
+        <div id="redessociais">
+            <p>Visite-nos em:</p>
+            <a target="_blank" href="https://www.instagram.com/">
+                <img alt="instagram" src="../images/instagram.png" height="60%">
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

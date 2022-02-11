@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Eventos Realizados - Beer Mile</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <script type="text/javascript" src="../utils.js"></script>
+</head>
+
+<body onload="carregarEventos('realizados')">
+    <div id="cabecalho">
+        <div id="titulo">
+            <img id="logo" alt="logo" src="../images/logo.png" height="70%">
+            <div id="empresa">
+                <h1 id="nome">Beer Mile</h1>
+                <div id="slogan">: a corrida mais portuguesa de Portugal!</div>
+            </div>
+        </div>
+        <div id="navegacao">
+            <div class="item">
+                <a href="../index.html">
+                    <button class="item-butao">Inicio</button>
+                </a>
+            </div>
+            <div class="item">
+                <button class="item-butao">Eventos</button>
+                <div class="item-subitems">
+                    <a href="inscricao.html">Inscrição</a>
+                    <a href="a_decorrer.html">Eventos a Decorrer</a>
+                    <a href="realizados.html">Eventos Realizados</a>
+                    <a href="proximos.html">Próximos Eventos</a>
+                    <a href="procurar.html">Procurar Eventos</a>
+                </div>
+            </div>
+            <div class="item">
+                <button class="item-butao">Classificações</button>
+                <div class="item-subitems">
+                    <a href="../classificacoes/geral.html">Classificação Geral</a>
+                    <a href="../classificacoes/masculino.html">Classificação Masculina</a>
+                    <a href="../classificacoes/feminino.html">Classificação Feminina</a>
+                </div>
+            </div>
+            <div class="item">
+                <a href="../sobre-nos.html">
+                    <button class="item-butao">Sobre Nós</button>
+                </a>
+            </div>
+            <div class="item">
+                <button class="item-butao">Admin</button>
+                <div class="item-subitems">
+                    <a href="../admin/criar-evento.html">Criar Evento</a>
+                    <a href="../admin/registar-tempos.html">Registar Tempos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="conteudo">
+        <div id="conteudo-cards">
+            <div class="cards-linhas">
+                <div class="cards-esquerda">
+                    <div id="card1" name="1" onclick="clicarNumEvento(event)" class="card">
+                    </div>
+                </div>
+                <div class="cards-direita">
+                    <div id="card2" name="2" onclick="clicarNumEvento(event)" class="card">
+                    </div>
+                </div>
+            </div>
+            <div class="cards-linhas">
+                <div class="cards-esquerda">
+                    <div id="card3" name="3" onclick="clicarNumEvento(event)" class="card">
+                    </div>
+                </div>
+                <div class="cards-direita">
+                    <div id="card4" name="4" onclick="clicarNumEvento(event)" class="card">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="conteudo-paginacao">
+            <p>Página&nbsp;</p>
+            <select id="pagina" name="realizados" onchange="mudarDePagina(event)">
+            </select>
+            <p>&nbsp;de&nbsp;</p>
+            <p id="numeroDaPagina"></p>
+        </div>
+    </div>
+    <div id="rodape">
+        <div id="direitos">
+            <p>André Rato & João Rouxinol @ TW2021<br />Todos os direitos reservados</p>
+        </div>
+        <div id="patrocinadores">
+            <p>Patrocinadores Oficiais:</p>
+            <a target="_blank" href="https://www.adidas.pt/">
+                <img alt="adidas" src="../images/adidas.png" height="50%">
+            </a>
+            <a target="_blank" href="http://www.sagres.pt/">
+                <img alt="sagres" src="../images/sagres.png" height="50%">
+            </a>
+            <a target="_blank" href="https://www.uevora.pt/">
+                <img alt="uevora" src="../images/uevora.png" height="60%">
+            </a>
+        </div>
+        <div id="redessociais">
+            <p>Visite-nos em:</p>
+            <a target="_blank" href="https://www.instagram.com/">
+                <img alt="instagram" src="../images/instagram.png" height="60%">
+            </a>
+        </div>
+    </div>
+    <div id="modal" class="modal">
+        <div id="modal-conteudo" class="modal-conteudo">
+            <span class="fechar" onclick="fecharModal()">&times;</span>
+            <h2 id="nome-evento"></h2>
+        </div>
+    </div>
+</body>
+
+</html>
