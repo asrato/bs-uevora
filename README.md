@@ -21,7 +21,6 @@ This repository contains all my graduation projects
  │    └── 📗 SO-Projects
  ├── 📂 5th Semester
  |    ├── 📙 AA-Projects
- |    ├── 📙 MDS-Projects
  |    ├── 📙 P3-Project
  |    ├── 📙 SD-Projects
  │    └── 📙 TW-Projects
