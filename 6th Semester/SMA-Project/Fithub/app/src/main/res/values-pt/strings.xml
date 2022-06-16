@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FitHub</string>
+    <string name="username">Utilizador</string>
+    <string name="password">Palavra-passe</string>
+    <string name="confirm_pass">Repetir palavra-passe</string>
+    <string name="login">Entrar</string>
+    <string name="register">Registar</string>
+    <string name="sign_out">Sair</string>
+    <string name="welcome">Bem-vindo à FitHub</string>
+    <string name="back">Voltar</string>
+    <string name="load">Carregar</string>
+    <string name="hello">Olá,</string>
+    <string name="try_again">Tentar novamente</string>
+    <string name="close">Fechar</string>
+    <string name="crash">Crashar</string>
+    <string name="age">Idade</string>
+    <string name="age_title">Idade:</string>
+    <string name="weight">Peso, em Kg</string>
+    <string name="weight_title">Peso:</string>
+    <string name="height">Altura, em cm</string>
+    <string name="height_title">Altura:</string>
+    <string name="neck">Pescoço, em cm</string>
+    <string name="waist">Cintura, em cm</string>
+    <string name="hip">Anca, em cm</string>
+    <string name="request_error">Ocorreu um problema na execução do pedido</string>
+    <string name="empty_parameter">não foi preenchido</string>
+    <string name="gender">Género</string>
+    <string name="male">Homem</string>
+    <string name="female">Mulher</string>
+    <string name="calculate">Calcular</string>
+    <string name="bmi_option">IMC</string>
+    <string name="bmi_value_title">Valor do IMC:</string>
+    <string name="bmi_title">Índice de Massa Corporal</string>
+    <string name="body_fat_option">MG %</string>
+    <string name="body_fat_title">Percentagem de Massa Gorda</string>
+    <string name="history_option">Histórico</string>
+    <string name="category">Categoria</string>
+    <string name="category_title">Categoria:</string>
+    <string name="no_match_pw">As palavras-chave não correspondem</string>
+    <string name="short_pw">A palavra-chave deve ter, pelo menos, 6 caracteres</string>
+    <string name="no_user_register">Não foi possível registar o utilizador</string>
+    <string name="no_login_user">Não foi possível validar a identidade do utilizador</string>
+    <string name="send_pic">Nova Foto</string>
+    <string name="recv_pic">Receber Álbum</string>
+    <string name="calories">Calorias Diárias</string>
+    <string name="level_1">Sedentário: pouco ou nenhum exercício</string>
+    <string name="level_2">Exercício 1–3 vezes p/semana</string>
+    <string name="level_3">Exercício 4–5 vezes p/semana</string>
+    <string name="level_4">Exercício diário ou exercício intenso 3–4 vezes p/semana</string>
+    <string name="level_5">Exercício intenso 6–7 vezes p/semana</string>
+    <string name="level_6">Exercício diário muito intenso, ou trabalho exigente</string>
+    <string name="suggestion_title">O que acha de:</string>
+    <string name="suggestion_button">Sugestão de actividade</string>
+    <string name="for_example">Por exemplo:</string>
+    <string name="send">Enviar</string>
+    <string name="open_cam">Abrir Câmera</string>
+    <string name="light">Atividade Leve</string>
+    <string name="progress_album">Álbum de Progresso</string>
+    <string name="moderate">Atividade Moderada</string>
+    <string name="vigorous">Atividade Vigorosa</string>
+
+    <string name="extreme_loss">Perda Extrema de Peso (1Kg Semanal)</string>
+    <string name="loss">Perda de Peso (0.5Kg Semanal)</string>
+    <string name="mild_loss">Perda Leve de Peso (0.25Kg Semanal)</string>
+    <string name="maintain">Manter Peso</string>
+    <string name="mild_gain">Ganho Leve de Peso (0.25Kg Semanal)</string>
+    <string name="gain">Ganho de Peso (0.5Kg Semanal)</string>
+    <string name="extreme_gain">Ganho Extremo de Peso (1Kg Semanal)</string>
+
+    <string name="mainMenuCalories">Não Te Esqueças Do Teu Intake Diário:</string>
+    <string name="dailyCaloriesResult">Calorias Necessárias Diariamente:</string>
+
+
+    <string name= "about_btn">Sobre App</string>
+    <string name="About_1">FitHub é o parceiro ideal para a tua jornada fitness. </string>
+    <string name="About_2">Queres manter registo do teu BMI ou MG%? FitHub!</string>
+    <string name="About_3">Queres tirar fotos e ver o progresso da tua jornada? FitHub!</string>
+    <string name="About_4">Precisas de descobrir quais os teus objetivos calóricos? FitHub!</string>
+    <string name="About_5">Queres sugestões para novas atividades? FitHub!</string>
+    <string name="About_6">Com FitHub, ser mais saudável é mais fácil e divertido.</string>
+    <string name="About_7">Escolhe FitHub, escolhe saúde.</string>
+    <string name="made_by">App desenvolvida por:</string>
+
+
+
+</resources>
