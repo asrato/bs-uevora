@@ -24,5 +24,11 @@ This repository contains all my graduation projects
  |    ├── 📙 P3-Project
  |    ├── 📙 SD-Projects
  │    └── 📙 TW-Projects
+ ├── 📂 6th Semester
+ |    ├── 📙 EIno-Project
+ |    ├── 📙 EstC-Project
+ |    ├── 📙 IA-Projects
+ |    ├── 📙 SI-Projects
+ │    └── 📙 SMA-Project
  └── 📄 README.md
 ```
