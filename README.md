@@ -1,9 +1,9 @@
-<h1 align="center">📚 Graduation @ UÉvora 📚</h1>
+<h1 align="center">📚 Bachelor's Degree in Computer SciencesEngineering @ Universidade de Évora 📚</h1>
 
-This repository contains all my graduation projects
+This repository contains all my bachelor's degree projects
 ## Repository Structure
 ```
-🗂 graduation-uevora
+🗂 bs-uevora
  ├── 📂 1st Semester
  |    ├── 📘 P1-Project
  |    └── 📘 SD-Project
